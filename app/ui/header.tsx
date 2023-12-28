@@ -4,13 +4,14 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 export function Header() {
     return (
         <header style={{
-            backgroundColor: '#ccc',
+            backdropFilter: 'blur(20px) ',
             height: 'var(--toolbar-height)',
             lineHeight: 'var(--toolbar-height)',
             position: 'fixed',
             top: 0,
             left: 0,
-            right: 0
+            right: 0,
+            zIndex:1
         }}>
             <h1 style={{
                 display: 'inline-block',

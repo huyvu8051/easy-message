@@ -5,7 +5,7 @@ import {config} from '@fortawesome/fontawesome-svg-core'
 
 import '@fortawesome/fontawesome-svg-core/styles.css'
 import type {Metadata} from 'next'
-import {Inter} from 'next/font/google'
+import {Plus_Jakarta_Sans} from 'next/font/google'
 import React from 'react'
 import './globals.css'
 
@@ -13,7 +13,7 @@ import './globals.css'
 // since it's already imported above
 config.autoAddCss = false
 
-const inter = Inter({subsets: ['latin']})
+const plusJakartaSans = Plus_Jakarta_Sans({subsets: ['latin']})
 
 export const metadata: Metadata = {
     title: 'Easy Message',
@@ -28,7 +28,7 @@ export default async function RootLayout({
 
     return (
         <html lang="en">
-        <body className={inter.className}>
+        <body className={plusJakartaSans.className}>
         <main style={{
             height: 'calc(100vh - var(--toolbar-height))',
             marginTop: 'var(--toolbar-height)'

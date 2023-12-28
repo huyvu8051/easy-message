@@ -52,3 +52,5 @@ E
 next-env.d.ts,7\9\7948598afd6f2aa542f1b55d7b6f077a70937e77
 =
 tsconfig.json,6\1\61ebb9fd6e8cf9082658121d5d81e297791dacd0
+H
+app/ui/styles.module.css,3\1\3188cc60368e6cdf6639b56adfc7494f1f9b0580
