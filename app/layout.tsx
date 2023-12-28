@@ -1,22 +1,44 @@
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import {Footer} from '@/app/ui/footer'
+import {Header} from '@/app/ui/header'
+import {Navigation} from '@/app/ui/navigation'
+import {config} from '@fortawesome/fontawesome-svg-core'
+
+import '@fortawesome/fontawesome-svg-core/styles.css'
+import type {Metadata} from 'next'
+import {Inter} from 'next/font/google'
+import React from 'react'
 import './globals.css'
 
-const inter = Inter({ subsets: ['latin'] })
+// Tell Font Awesome to skip adding the CSS automatically
+// since it's already imported above
+config.autoAddCss = false
+
+const inter = Inter({subsets: ['latin']})
 
 export const metadata: Metadata = {
-  title: 'Easy Message',
-  description: 'F*cking Easy Message app with high performance and scalable storage.',
+    title: 'Easy Message',
+    description: 'F*cking Easy Message app with high performance and scalable storage.'
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
+export default async function RootLayout({
+                                             children
+                                         }: {
+    children: React.ReactNode
 }) {
-  return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
-    </html>
-  )
+
+    return (
+        <html lang="en">
+        <body className={inter.className}>
+        <main style={{
+            height: 'calc(100vh - var(--toolbar-height))',
+            marginTop: 'var(--toolbar-height)'
+        }}>
+            <Header/>
+            <Navigation/>
+            {children}
+            <Footer/>
+        </main>
+        </body>
+        </html>
+    )
 }

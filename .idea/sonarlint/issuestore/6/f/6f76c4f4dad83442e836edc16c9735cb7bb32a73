@@ -1,2 +1,5 @@
 
-Ftypescript:S6772	"*Ambiguous spacing before next element code(ºÒÖŸ
+Ttypescript:S1128",Remove this unused import of 'fetchRevenue'.(…‡åœúÿÿÿÿ8ÉÈçóÊ1
+Ktypescript:S1128"#Remove this unused import of 'sql'.(ñŒç ıÿÿÿÿ8‹¯çóÊ1
+Utypescript:S6759"-Mark the props of the component as read-only.(‘ùìºıÿÿÿÿ8Õÿ§áÇ1
+Atypescript:S125	"Remove this commented out code.(†—¬…8‹¯çóÊ1
