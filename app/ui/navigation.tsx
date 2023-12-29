@@ -1,6 +1,10 @@
+'use client'
+
+import {Header} from '@/app/ui/header'
 import style from '@/app/ui/navigation.module.css'
 import {faCheckDouble} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import React from 'react'
 
 const {
     convCover,
@@ -97,13 +101,14 @@ export function Navigation() {
 
     return (
         <nav className={navigation}>
+            <Header/>
             <ul>
                 {conversations.map((e: Conversation) => {
                     return (
-                        <li key={e.id}>
+                        <li key={e.id} onClick={handleOpenConv}>
                             <div className={convCover}>
                                 {/*DS*/}
-                                <img src={e.coverImg} alt={`${e.name} cover image.`} className={convCoverImg} />
+                                <img src={e.coverImg} alt={`${e.name} cover image.`} className={convCoverImg}/>
                                 <div className={statusCircle}/>
                             </div>
                             <div className={convDetails}>

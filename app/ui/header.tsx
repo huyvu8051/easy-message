@@ -12,7 +12,7 @@ export function Header() {
             height: 'var(--toolbar-height)',
             left: 0,
             lineHeight: 'var(--toolbar-height)',
-            position: 'fixed',
+            position: 'absolute',
             right: 0,
             top: 0,
             zIndex: 1

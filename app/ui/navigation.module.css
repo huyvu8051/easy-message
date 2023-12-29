@@ -1,5 +1,19 @@
 .navigation {
     padding: 8px;
+    height: 100%;
+    position: relative;
+}
+
+@media only screen and (min-width: 600px) {
+    .navigation{
+        width: 33.33333%;
+    }
+}
+
+.navigation ul{
+    margin-top: var(--toolbar-height);
+    height: calc(100% - var(--toolbar-height));
+    overflow-y: auto;
 }
 
 .navigation ul li {

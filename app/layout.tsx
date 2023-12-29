@@ -1,10 +1,8 @@
 import {Footer} from '@/app/ui/footer'
-import {Header} from '@/app/ui/header'
-import {Navigation} from '@/app/ui/navigation'
 import {config} from '@fortawesome/fontawesome-svg-core'
 
 import '@fortawesome/fontawesome-svg-core/styles.css'
-import type {Metadata} from 'next'
+import type {Metadata, Viewport} from 'next'
 import {Plus_Jakarta_Sans} from 'next/font/google'
 import React from 'react'
 import './globals.css'
@@ -15,13 +13,11 @@ config.autoAddCss = false
 
 const plusJakartaSans = Plus_Jakarta_Sans({subsets: ['latin']})
 
-import type { Viewport } from 'next'
-
 export const viewport: Viewport = {
     width: 'device-width',
     initialScale: 1,
     maximumScale: 1,
-    viewportFit:'cover'
+    viewportFit: 'cover'
 }
 
 export const metadata: Metadata = {
@@ -39,14 +35,13 @@ export default async function RootLayout({
         <html lang="en">
         <body className={plusJakartaSans.className}>
         <main style={{
-            height: 'calc(100vh - var(--toolbar-height))',
-            marginTop: 'var(--toolbar-height)'
+            flex: 1,
+            overflowY: 'auto'
         }}>
-            <Header/>
-            <Navigation/>
+
             {children}
-            <Footer/>
         </main>
+        <Footer/>
         </body>
         </html>
     )

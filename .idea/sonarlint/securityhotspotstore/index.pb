@@ -56,3 +56,7 @@ H
 app/ui/styles.module.css,3\1\3188cc60368e6cdf6639b56adfc7494f1f9b0580
 H
 app/ui/header.module.css,6\8\68a57fc5ddf89ce8a542122953be0e9cb3fba760
+L
+app/ui/navigation.module.css,f\1\f18c5b5100ea37695f8ef3b2e0105d7f7f4739c2
+A
+app/chat/page.tsx,c\9\c9418db4bf2e8cd4740604b4fc8a1cda6ed0a8d9

@@ -19,6 +19,9 @@
 
 body {
     color: rgb(var(--foreground-rgb));
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
 }
 
 * {
