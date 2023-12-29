@@ -17,7 +17,8 @@ export const viewport: Viewport = {
     width: 'device-width',
     initialScale: 1,
     maximumScale: 1,
-    viewportFit: 'cover'
+    viewportFit: 'cover',
+
 }
 
 export const metadata: Metadata = {
@@ -36,7 +37,8 @@ export default async function RootLayout({
         <body className={plusJakartaSans.className}>
         <main style={{
             flex: 1,
-            overflowY: 'auto'
+            overflowY: 'auto',
+            display: 'flex'
         }}>
 
             {children}
