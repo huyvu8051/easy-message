@@ -29,6 +29,16 @@ type Conversation = {
     status: string
 }
 
+const getAvatarName = (name: string): string => {
+    let strings = name.split('\s')
+    if (strings.length > 1) return strings[0].charAt(0) + strings[1].charAt(0)
+    if (strings.length > 0) {
+        if (strings[0].length > 1) return strings[0].slice(0, 1)
+        return strings[0].charAt(0)
+    }
+    return ''
+}
+
 const conversations: Conversation[] = [
     {
         id: '1',
@@ -42,7 +52,7 @@ const conversations: Conversation[] = [
     },
     {
         id: '2',
-        coverImg: '/assets/img/4f6dc3624a44fb5e01e406158e3d1b49.jpg',
+        coverImg: '/assets/img/4f6dc3624a44fb5e01e406158e3d1b49.jp',
         name: 'Fullsnack Designers',
         lastMsgTimeFmt: '16:04',
         lastMsgCnt: 'Hello guys, we have discussed about ...',
@@ -93,7 +103,7 @@ export function Navigation() {
                         <li key={e.id}>
                             <div className={convCover}>
                                 {/*DS*/}
-                                <img src={e.coverImg} alt={`${e.name} cover image.`} className={convCoverImg}/>
+                                <img src={e.coverImg} alt={`${e.name} cover image.`} className={convCoverImg} />
                                 <div className={statusCircle}/>
                             </div>
                             <div className={convDetails}>
