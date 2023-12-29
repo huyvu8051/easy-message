@@ -108,6 +108,7 @@ export function Navigation() {
                                     {e.lastMsgCount > 0 && <p className={lastMsgCount}>{e.lastMsgCount}</p>}
                                 </div>
                             </div>
+                            <div style={{clear: 'both'}}></div>
                         </li>
                     )
                 })}
