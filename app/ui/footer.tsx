@@ -3,6 +3,7 @@ export function Footer() {
         <footer style={{
             textAlign: 'center',
             backdropFilter: 'blur(20px)',
+            WebkitBackdropFilter: 'blur(20px)',
             position: 'fixed',
             bottom: 0,
             left: 0,

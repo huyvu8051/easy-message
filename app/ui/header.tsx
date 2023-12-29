@@ -5,13 +5,14 @@ export function Header() {
     return (
         <header style={{
             backdropFilter: 'blur(20px) ',
+            WebkitBackdropFilter: 'blur(20px)',
             height: 'var(--toolbar-height)',
             lineHeight: 'var(--toolbar-height)',
             position: 'fixed',
             top: 0,
             left: 0,
             right: 0,
-            zIndex:1
+            zIndex: 1
         }}>
             <h1 style={{
                 display: 'inline-block',
