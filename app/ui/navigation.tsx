@@ -1,4 +1,4 @@
-import styles from '@/app/ui/styles.module.css'
+import style from '@/app/ui/navigation.module.css'
 import {faCheckDouble} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 
@@ -16,7 +16,7 @@ const {
     iconSend,
     lastMsgCount
 }
-    = styles
+    = style
 
 type Conversation = {
     id: string,

@@ -54,3 +54,5 @@ E
 tsconfig.json,6\1\61ebb9fd6e8cf9082658121d5d81e297791dacd0
 H
 app/ui/styles.module.css,3\1\3188cc60368e6cdf6639b56adfc7494f1f9b0580
+H
+app/ui/header.module.css,6\8\68a57fc5ddf89ce8a542122953be0e9cb3fba760

@@ -1,17 +1,20 @@
+import styles from '@/app/ui/header.module.css'
 import {faSearch} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+
+const {searchBtn} = styles
 
 export function Header() {
     return (
         <header style={{
-            backdropFilter: 'blur(20px) ',
             WebkitBackdropFilter: 'blur(20px)',
+            backdropFilter: 'blur(20px) ',
             height: 'var(--toolbar-height)',
+            left: 0,
             lineHeight: 'var(--toolbar-height)',
             position: 'fixed',
-            top: 0,
-            left: 0,
             right: 0,
+            top: 0,
             zIndex: 1
         }}>
             <h1 style={{
@@ -21,12 +24,7 @@ export function Header() {
             }}>
                 Recent Chats
             </h1>
-            <div style={{
-                display: 'inline-block',
-                float: 'right',
-                paddingLeft: 8,
-                paddingRight: 8
-            }}>
+            <div className={searchBtn}>
                 <FontAwesomeIcon
                     icon={faSearch}
                 />
