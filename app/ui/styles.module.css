@@ -17,7 +17,7 @@
 
 }
 
-.conv-cover {
+.convCover {
     height: 48px;
     width: 48px;
     text-align: center;
@@ -25,17 +25,22 @@
     font-weight: 500;
     border-radius: 50%;
     /*border: 1px solid #ccc;*/
-
+    background-color: #f2c94c;
     position: relative;
 }
 
-.status-circle {
+.convCoverImg{
+    border-radius: 50%;
+    height: 48px;
+    width: 48px;
+}
+
+.statusCircle {
     height: 12px;
     width: 12px;
-
-    top: 50%; /* Position at the center vertically */
-    left: 50%;
     position: absolute;
+    top: 50%;
+    left: 50%;
     background-color: #f2c94c;
     border-radius: 50%;
     border: 2px solid white;
@@ -45,16 +50,22 @@
 
 }
 
-.conv-details {
+
+.statusOffline{
+
+}
+
+
+.convDetails {
     flex: 1;
     margin-left: 16px;
 }
 
-.conv-upper {
+.convUpper {
     display: flex;
 }
 
-.conv-name {
+.convName {
     color: #1B1A57;
     flex: 1;
     font-size: 14px;
@@ -63,7 +74,7 @@
     line-height: normal;
 }
 
-.last-msg-time {
+.lastMsgTime {
     color: #4F5E7B;
     font-size: 12px;
     font-style: normal;
@@ -72,12 +83,12 @@
     opacity: .6;
 }
 
-.conv-lower {
+.convLower {
     display: flex;
     margin-top: 8px;
 }
 
-.last-msg-content {
+.lastMsgContent {
     flex: 1;
     font-size: 12px;
     font-style: normal;
@@ -86,7 +97,7 @@
 
 }
 
-.last-msg-count {
+.lastMsgCount {
     color: #fff;
     font-size: 12px;
     font-style: normal;
@@ -100,7 +111,8 @@
 }
 
 
-.icon-send {
+.iconSend {
     margin-right: 6px;
 }
+
 

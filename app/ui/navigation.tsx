@@ -2,6 +2,22 @@ import styles from '@/app/ui/styles.module.css'
 import {faCheckDouble} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 
+const {
+    convCover,
+    statusCircle,
+    navigation,
+    convCoverImg,
+    convDetails,
+    convUpper,
+    convName,
+    lastMsgTime,
+    convLower,
+    lastMsgContent,
+    iconSend,
+    lastMsgCount
+}
+    = styles
+
 type Conversation = {
     id: string,
     lastMsgCnt: string,
@@ -64,30 +80,37 @@ const conversations: Conversation[] = [
 
 
 export function Navigation() {
+    const handleOpenConv = () => {
+        console.log('open conversation')
+    }
+
+
     return (
-        <nav className={styles.navigation}>
+        <nav className={navigation}>
             <ul>
-                {conversations.map((e: Conversation) => (
-                    <li key={e.id}>
-                        <div className={styles['conv-cover']}
-                             style={{backgroundImage: `url(${e.coverImg})`, backgroundSize: '48px 48px '}}>
-                            {/*DS*/}
-                            <div className={`${styles['status-circle']} `}/>
-                        </div>
-                        <div className={styles['conv-details']}>
-                            <div className={styles['conv-upper']}>
-                                <p className={styles['conv-name']}>{e.name}</p>
-                                <p className={styles['last-msg-time']}>{e.lastMsgTimeFmt}</p>
+                {conversations.map((e: Conversation) => {
+                    return (
+                        <li key={e.id}>
+                            <div className={convCover}>
+                                {/*DS*/}
+                                <img src={e.coverImg} alt={`${e.name} cover image.`} className={convCoverImg}/>
+                                <div className={statusCircle}/>
                             </div>
-                            <div className={styles['conv-lower']}>
-                                <p className={styles['last-msg-content']}>
-                                    {e.send && <FontAwesomeIcon className={styles['icon-send']}
-                                                                icon={faCheckDouble}/>} {e.lastMsgCnt}</p>
-                                {e.lastMsgCount > 0 && <p className={styles['last-msg-count']}>{e.lastMsgCount}</p>}
+                            <div className={convDetails}>
+                                <div className={convUpper}>
+                                    <p className={convName}>{e.name}</p>
+                                    <p className={lastMsgTime}>{e.lastMsgTimeFmt}</p>
+                                </div>
+                                <div className={convLower}>
+                                    <p className={lastMsgContent}>
+                                        {e.send && <FontAwesomeIcon className={iconSend}
+                                                                    icon={faCheckDouble}/>} {e.lastMsgCnt}</p>
+                                    {e.lastMsgCount > 0 && <p className={lastMsgCount}>{e.lastMsgCount}</p>}
+                                </div>
                             </div>
-                        </div>
-                    </li>
-                ))}
+                        </li>
+                    )
+                })}
 
             </ul>
         </nav>
