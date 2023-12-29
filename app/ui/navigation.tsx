@@ -52,7 +52,7 @@ const conversations: Conversation[] = [
     },
     {
         id: '2',
-        coverImg: '/assets/img/4f6dc3624a44fb5e01e406158e3d1b49.jp',
+        coverImg: '/assets/img/4f6dc3624a44fb5e01e406158e3d1b49.jpg',
         name: 'Fullsnack Designers',
         lastMsgTimeFmt: '16:04',
         lastMsgCnt: 'Hello guys, we have discussed about ...',
