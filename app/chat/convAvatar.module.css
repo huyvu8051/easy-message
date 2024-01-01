@@ -1,0 +1,40 @@
+
+.convCover {
+    height: 48px;
+    width: 48px;
+    text-align: center;
+    line-height: 48px;
+    font-weight: 500;
+    border-radius: 50%;
+    /*border: 1px solid #ccc;*/
+    background-color: #f2c94c;
+    position: relative;
+    display: inline-block;
+}
+
+.convCoverImg{
+    border-radius: 50%;
+    height: 48px;
+    width: 48px;
+    overflow: hidden;
+}
+
+.statusCircle {
+    height: 12px;
+    width: 12px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background-color: #f2c94c;
+    border-radius: 50%;
+    border: 2px solid white;
+    position: absolute;
+    transform-origin: 100% 100%;
+    transform: rotate(180deg);
+
+}
+
+
+.statusOffline{
+
+}

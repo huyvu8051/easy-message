@@ -24,6 +24,12 @@ body {
     height: 100vh;
 }
 
+body main {
+    flex: 1;
+    overflowY: auto;
+    display: flex;
+}
+
 * {
     margin: 0;
     padding: 0;

@@ -1,4 +1,4 @@
-import {Footer} from '@/app/ui/footer'
+import {Footer} from '@/app/footer'
 import {config} from '@fortawesome/fontawesome-svg-core'
 
 import '@fortawesome/fontawesome-svg-core/styles.css'
@@ -22,8 +22,8 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-    title: 'Easy Message',
-    description: 'F*cking Easy Message app with high performance and scalable storage.'
+    title: 'Easy ConversationType',
+    description: 'F*cking Easy ConversationType app with high performance and scalable storage.'
 }
 
 export default async function RootLayout({
@@ -35,14 +35,7 @@ export default async function RootLayout({
     return (
         <html lang="en">
         <body className={plusJakartaSans.className}>
-        <main style={{
-            flex: 1,
-            overflowY: 'auto',
-            display: 'flex'
-        }}>
-
-            {children}
-        </main>
+        {children}
         <Footer/>
         </body>
         </html>
