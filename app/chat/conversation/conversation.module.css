@@ -1,11 +1,11 @@
-.container{
+.container {
     height: 100%;
     position: relative;
     padding: 8px;
     width: 100%;
 }
 
-.header{
+.header {
     height: 64px;
     padding: 8px;
     backdrop-filter: blur(8px);
@@ -17,7 +17,7 @@
 }
 
 
-.headerBtn{
+.headerBtn {
     display: inline-block;
     float: right;
     width: 32px;
@@ -29,43 +29,62 @@
     margin: 8px;
     color: #4F5E7B;
 }
-.headerBtn:hover{
-    background-color: #4F5E7B;
+
+.headerBtn:hover {
+    background-color: #E8F0FB;
+    opacity: .8;
+}
+
+
+.paragraphs {
+    display: block;
+    height: 100%;
+    padding-top: 64px;
+
+}
+
+
+.currentParagraph .message {
+    align-self: end;
+    background-color: #2F80ED;
     color: #fff;
 }
 
 
-
-.paragraphs{
-    display: block;
-    height: 100%;
-    padding-top: 64px;
-}
-
-
-.paragraph{
+.paragraph {
     display: flex;
     flex-direction: row;
+    align-items: end;
+    margin: 16px 90px 0 0;
+
 }
 
-.authorAvatar{
+.currentParagraph {
+    margin: 16px 0 0 90px;
+
+}
+
+.authorAvatar {
     padding: 8px;
+    height: 56px;
 }
 
-.paragraphContent{
+.paragraphContent {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
-.message{
-    width: fit-content;
+.message {
+    align-self: start;
     background-color: #F7F7F7;
     border-radius: 8px;
     padding: 8px 10px;
-    margin: 8px;
     color: #1B1A57;
-
     font-size: 12px;
     font-style: normal;
     font-weight: 400;
     line-height: 18px; /* 150% */
 }
+

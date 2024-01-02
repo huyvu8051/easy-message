@@ -117,11 +117,7 @@ export function Conversation() {
                     </div>
                 </div>
 
-                <div className={styles.paragraph}>
-                    <div className={styles.authorAvatar}>
-                        <ConvAvatar size={40} name={''} hidden
-                                    coverImg={'/assets/img/2977aa404ccb3e9ed56890aa3fee11c9.png'}/>
-                    </div>
+                <div className={`${styles.paragraph} ${styles.currentParagraph}`}>
                     <div className={styles.paragraphContent}>
                         <div className={styles.message}>Audax, grandis gabaliums unus quaestio de altus, lotus
                             sensorem.
