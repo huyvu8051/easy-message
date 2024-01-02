@@ -2,5 +2,22 @@
     height: 64px;
     padding: 8px;
     background-color: aliceblue;
-    text-align: left;
+}
+
+
+.headerBtn{
+    display: inline-block;
+    float: right;
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 50%;
+    margin: 8px;
+    color: #4F5E7B;
+}
+.headerBtn:hover{
+    background-color: #4F5E7B;
+    color: #fff;
 }
