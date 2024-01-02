@@ -1,15 +1,20 @@
-import React from "react";
-import styles from '@/app/chat/conversation/header.module.css'
-import {ConvAvatar} from "@/app/chat/convAvatar";
-import {ConvDetails} from "@/app/chat/navigation/convDetails";
-import {ConvVideoCallBtn} from "@/app/chat/conversation/convVideoCallBtn";
-import {ConvOptionBtn} from "@/app/chat/conversation/convOptionBtn";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faBars} from "@fortawesome/free-solid-svg-icons";
+'use client'
+
+import {ConvAvatar} from '@/app/chat/convAvatar'
+import {ConvOptionBtn} from '@/app/chat/conversation/convOptionBtn'
+import {ConvVideoCallBtn} from '@/app/chat/conversation/convVideoCallBtn'
+import styles from '@/app/chat/conversation/conversation.module.css'
+import {ConvDetails} from '@/app/chat/navigation/convDetails'
+import {useSideNav} from '@/app/chat/SideNavContext'
+import {faBars} from '@fortawesome/free-solid-svg-icons'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import React from 'react'
 
 function NavToggleBtn() {
+    const {isSideNavOpen, toggleSideNav} = useSideNav()
+
     return (
-        <div className={styles.headerBtn} style={{float: 'left'}}>
+        <div className={styles.headerBtn} style={{float: 'left'}} onClick={event => toggleSideNav()}>
             <FontAwesomeIcon
                 icon={faBars}
             />
@@ -18,6 +23,7 @@ function NavToggleBtn() {
 }
 
 export function Header() {
+
     const item = {
         id: '5',
         coverImg: '/assets/img/2977aa404ccb3e9ed56890aa3fee11c9.png',

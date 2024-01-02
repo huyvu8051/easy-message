@@ -1,11 +1,13 @@
 'use client'
 
+import {ConvAvatar} from '@/app/chat/convAvatar'
+import {ConversationType} from '@/app/chat/conversation.type'
+import {ConvDetails} from '@/app/chat/navigation/convDetails'
 import {Header} from '@/app/chat/navigation/header'
 import styles from '@/app/chat/navigation/navigation.module.css'
+
+import {useSideNav} from '@/app/chat/SideNavContext'
 import React from 'react'
-import {ConvAvatar} from "@/app/chat/convAvatar";
-import {ConversationType} from "@/app/chat/conversation.type";
-import {ConvDetails} from "@/app/chat/navigation/convDetails";
 
 
 const conversations: ConversationType[] = [
@@ -58,26 +60,36 @@ const conversations: ConversationType[] = [
     }]
 
 export function Navigation() {
+    const {isSideNavOpen, toggleSideNav} = useSideNav()
+
     const handleOpenConv = (item: ConversationType) => {
+        toggleSideNav()
         console.log('open conversation', item)
     }
 
 
     return (
-        <nav className={styles.navigation}>
-            <Header/>
-            <ul>
-                {conversations.map((e: ConversationType) => {
-                    return (
-                        <li key={e.id} onClick={() => handleOpenConv(e)}>
-                            <ConvAvatar {...e}/>
-                            <ConvDetails item={e}/>
-                            <div style={{clear: 'both'}}></div>
-                        </li>
-                    )
-                })}
+        <nav className={styles.navigation} style={isSideNavOpen ? {
+            width: '100%'
+        } : {
+            width: '0',
+            filter: 'blur(1px)'
+        }}>
+            <div className={styles.navPadding}>
+                <Header/>
+                <ul>
+                    {conversations.map((e: ConversationType) => {
+                        return (
+                            <li key={e.id} onClick={() => handleOpenConv(e)}>
+                                <ConvAvatar {...e}/>
+                                <ConvDetails item={e}/>
+                                <div style={{clear: 'both'}}></div>
+                            </li>
+                        )
+                    })}
 
-            </ul>
+                </ul>
+            </div>
         </nav>
     )
 }

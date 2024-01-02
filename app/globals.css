@@ -26,7 +26,7 @@ body {
 
 body main {
     flex: 1;
-    overflowY: auto;
+    overflow-y: auto;
     display: flex;
 }
 

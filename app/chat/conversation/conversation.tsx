@@ -1,7 +1,10 @@
-import React from "react";
+'use client'
+
+import {ConvAvatar} from '@/app/chat/convAvatar'
 import styles from '@/app/chat/conversation/conversation.module.css'
-import {Header} from "@/app/chat/conversation/header";
-import {ConvAvatar} from "@/app/chat/convAvatar";
+import {Header} from '@/app/chat/conversation/header'
+import {useSideNav} from '@/app/chat/SideNavContext'
+import React from 'react'
 
 
 type MessageContent = {
@@ -42,7 +45,7 @@ const paragraphs: Paragraph[] = [
                 content: 'Check out these amazing beaches in Bali!',
                 msgTime: 12345688,
                 msgTimeFmt: '16:05'
-            },
+            }
         ]
     },
     {
@@ -64,7 +67,7 @@ const paragraphs: Paragraph[] = [
                 content: 'I heard Bali has great local cuisine. Can\'t wait to try it!',
                 msgTime: 12345691,
                 msgTimeFmt: '16:08'
-            },
+            }
         ]
     },
     {
@@ -86,16 +89,19 @@ const paragraphs: Paragraph[] = [
                 content: 'Do we have a plan for sightseeing?',
                 msgTime: 12345694,
                 msgTimeFmt: '16:11'
-            },
+            }
         ]
-    },
+    }
     // Add more paragraph objects if needed
-];
+]
 
 
 export function Conversation() {
+    const {isSideNavOpen} = useSideNav()
+
+
     return (
-        <div className={styles.container} style={{}}>
+        <div className={styles.container} style={isSideNavOpen ? {} : {}}>
             <Header/>
             <div className={styles.paragraphs}>
                 <div className={styles.paragraph}>
@@ -103,7 +109,9 @@ export function Conversation() {
                         <ConvAvatar size={40} name={''} coverImg={'/assets/img/2977aa404ccb3e9ed56890aa3fee11c9.png'}/>
                     </div>
                     <div className={styles.paragraphContent}>
-                        <div className={styles.message}>Audax, grandis gabaliums unus quaestio de altus, lotus sensorem.</div>
+                        <div className={styles.message}>Audax, grandis gabaliums unus quaestio de altus, lotus
+                            sensorem.
+                        </div>
                         <div className={styles.message}>Parmas volare in regius brigantium!</div>
                         <div className={styles.message}>Parma brevis tus est.</div>
                     </div>

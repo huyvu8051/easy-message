@@ -1,20 +1,45 @@
 .container{
     height: 100%;
-    width: 66.66666%;
-     /*padding: '8px 8px 0 8px'*/
-    /*background-color: #E8F0FB;*/
     position: relative;
     padding: 8px;
+    width: 100%;
+}
+
+.header{
+    height: 64px;
+    padding: 8px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
 }
 
 
-.paragraphs{
-    margin-top: 64px;
+.headerBtn{
+    display: inline-block;
+    float: right;
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 50%;
+    margin: 8px;
+    color: #4F5E7B;
+}
+.headerBtn:hover{
+    background-color: #4F5E7B;
+    color: #fff;
+}
 
+
+
+.paragraphs{
     display: block;
     height: 100%;
-
-
+    padding-top: 64px;
 }
 
 
