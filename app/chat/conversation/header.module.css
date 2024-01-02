@@ -1,7 +1,12 @@
 .header{
     height: 64px;
     padding: 8px;
-    background-color: aliceblue;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
 }
 
 

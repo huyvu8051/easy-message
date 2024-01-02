@@ -4,6 +4,18 @@ import {ConvAvatar} from "@/app/chat/convAvatar";
 import {ConvDetails} from "@/app/chat/navigation/convDetails";
 import {ConvVideoCallBtn} from "@/app/chat/conversation/convVideoCallBtn";
 import {ConvOptionBtn} from "@/app/chat/conversation/convOptionBtn";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faBars} from "@fortawesome/free-solid-svg-icons";
+
+function NavToggleBtn() {
+    return (
+        <div className={styles.headerBtn} style={{float: 'left'}}>
+            <FontAwesomeIcon
+                icon={faBars}
+            />
+        </div>
+    )
+}
 
 export function Header() {
     const item = {
@@ -18,8 +30,9 @@ export function Header() {
     }
     return (
         <header className={styles.header}>
-            <ConvAvatar item={item}/>
-            <ConvDetails item={item} style={{width: 'calc(100% - 160px)'}}/>
+            <NavToggleBtn/>
+            <ConvAvatar {...item}/>
+            <ConvDetails item={item} style={{width: 'calc(100% - 208px)'}}/>
             <ConvOptionBtn/>
             <ConvVideoCallBtn/>
         </header>

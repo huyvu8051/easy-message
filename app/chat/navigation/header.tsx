@@ -1,10 +1,16 @@
+'use client'
+
 import styles from '@/app/chat/navigation/header.module.css'
-import {faSearch} from '@fortawesome/free-solid-svg-icons'
+import {faSearch, faBars} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 
 const {searchBtn} = styles
 
 export function Header() {
+    function handleToggleNav() {
+
+    }
+
     return (
         <header style={{
             WebkitBackdropFilter: 'blur(20px)',
@@ -17,6 +23,7 @@ export function Header() {
             top: 0,
             zIndex: 1
         }}>
+
             <h1 style={{
                 display: 'inline-block',
                 fontWeight: 600,

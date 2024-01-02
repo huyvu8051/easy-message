@@ -1,8 +1,8 @@
 import React from "react";
 import styles from '@/app/chat/conversation/conversation.module.css'
 import {Header} from "@/app/chat/conversation/header";
+import {ConvAvatar} from "@/app/chat/convAvatar";
 
-const {container} = styles
 
 type MessageContent = {
     content: string,
@@ -95,9 +95,20 @@ const paragraphs: Paragraph[] = [
 
 export function Conversation() {
     return (
-        <div className={container} style={{}}>
+        <div className={styles.container} style={{}}>
             <Header/>
             <div className={styles.paragraphs}>
+                <div className={styles.paragraph}>
+                    <div className={styles.authorAvatar}>
+                        <ConvAvatar size={40} name={''} coverImg={'/assets/img/2977aa404ccb3e9ed56890aa3fee11c9.png'}/>
+                    </div>
+                    <div className={styles.paragraphContent}>
+                        <div className={styles.message}>Audax, grandis gabaliums unus quaestio de altus, lotus sensorem.</div>
+                        <div className={styles.message}>Parmas volare in regius brigantium!</div>
+                        <div className={styles.message}>Parma brevis tus est.</div>
+                    </div>
+                </div>
+
 
             </div>
         </div>

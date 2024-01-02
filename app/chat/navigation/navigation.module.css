@@ -4,12 +4,12 @@
     position: relative;
     width: 100%;
 }
-
+/*
 @media only screen and (min-width: 600px) {
     .navigation{
         width: 33.33333%;
     }
-}
+}*/
 
 .navigation ul{
     margin-top: var(--toolbar-height);

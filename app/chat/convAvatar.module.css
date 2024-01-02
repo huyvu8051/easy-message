@@ -14,14 +14,14 @@
 
 .convCoverImg{
     border-radius: 50%;
-    height: 48px;
-    width: 48px;
+    height: 100%;
+    width: 100%;
     overflow: hidden;
 }
 
 .statusCircle {
-    height: 12px;
-    width: 12px;
+    height: 25%;
+    width: 25%;
     position: absolute;
     top: 50%;
     left: 50%;

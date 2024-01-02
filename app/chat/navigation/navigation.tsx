@@ -70,7 +70,7 @@ export function Navigation() {
                 {conversations.map((e: ConversationType) => {
                     return (
                         <li key={e.id} onClick={() => handleOpenConv(e)}>
-                            <ConvAvatar item={e}/>
+                            <ConvAvatar {...e}/>
                             <ConvDetails item={e}/>
                             <div style={{clear: 'both'}}></div>
                         </li>
