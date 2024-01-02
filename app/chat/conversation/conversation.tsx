@@ -97,6 +97,9 @@ export function Conversation() {
     return (
         <div className={container} style={{}}>
             <Header/>
+            <div className={styles.paragraphs}>
+
+            </div>
         </div>
     )
 }

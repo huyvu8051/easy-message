@@ -18,10 +18,9 @@ const {
 }
     = style
 
-export function ConvDetails(props: { item: ConversationType, style: CSSProperties}) {
-    console.log('style' ,props.style)
+export function ConvDetails(props: { item: ConversationType, style?: CSSProperties}) {
     return (
-        <div style={props.style} className={convDetails}>
+        <div style={{...props.style}} className={convDetails}>
             <div className={convUpper}>
                 <p className={convName}>{props.item.name}</p>
                 <p className={lastMsgTime}>{props.item.lastMsgTimeFmt}</p>

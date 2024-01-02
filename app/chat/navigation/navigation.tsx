@@ -1,17 +1,11 @@
 'use client'
 
 import {Header} from '@/app/chat/navigation/header'
-import style from '@/app/chat/navigation/navigation.module.css'
+import styles from '@/app/chat/navigation/navigation.module.css'
 import React from 'react'
 import {ConvAvatar} from "@/app/chat/convAvatar";
 import {ConversationType} from "@/app/chat/conversation.type";
 import {ConvDetails} from "@/app/chat/navigation/convDetails";
-
-const {
-    navigation,
-}
-    = style
-
 
 
 const conversations: ConversationType[] = [
@@ -70,7 +64,7 @@ export function Navigation() {
 
 
     return (
-        <nav className={navigation}>
+        <nav className={styles.navigation}>
             <Header/>
             <ul>
                 {conversations.map((e: ConversationType) => {
