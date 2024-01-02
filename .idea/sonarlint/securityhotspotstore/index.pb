@@ -90,3 +90,5 @@ U
 %app/chat/navigation/header.module.css,3\e\3e884cdf777a2f73712e484c0138908c6f6a6767
 Z
 *app/chat/conversation/convVideoCallBtn.tsx,d\4\d4efd0c2fb6c52b73b3cd00b97d228cb82217a0d
+G
+app/chat/convAvatar.tsx,5\6\56f390bce86e8eb316506d41672b6138177525d3
