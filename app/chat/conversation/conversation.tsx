@@ -106,7 +106,7 @@ export function Conversation() {
             <div className={styles.paragraphs}>
                 <div className={styles.paragraph}>
                     <div className={styles.authorAvatar}>
-                        <ConvAvatar size={40} name={''} coverImg={'/assets/img/2977aa404ccb3e9ed56890aa3fee11c9.png'}/>
+                        <ConvAvatar size={34} name={''} coverImg={'/assets/img/2977aa404ccb3e9ed56890aa3fee11c9.png'}/>
                     </div>
                     <div className={styles.paragraphContent}>
                         <div className={styles.message}>Audax, grandis gabaliums unus quaestio de altus, lotus
@@ -127,7 +127,43 @@ export function Conversation() {
                     </div>
                 </div>
 
+                <div className={styles.paragraph}>
+                    <div className={styles.authorAvatar}>
+                        <ConvAvatar size={34} name={''} coverImg={'/assets/img/2977aa404ccb3e9ed56890aa3fee11c9.png'}/>
+                    </div>
+                    <div className={styles.paragraphContent}>
+                        <div className={styles.message}>Not heavens or chaos, forget the silence.
+                        </div>
+                        <div className={styles.message}>Teres, neuter habenas aegre convertam de fortis, placidus
+                            exemplar.
+                        </div>
+                        <div className={styles.message}>Zetas sunt rumors de neuter candidatus.</div>
+                        <div className={styles.message}>Barcass sunt detriuss de raptus eleates.</div>
+                    </div>
+                </div>
 
+                <div className={`${styles.paragraph} ${styles.currentParagraph}`}>
+                    <div className={styles.paragraphContent}>
+                        <div className={styles.message}>
+                            Audax amors ducunt ad detrius.
+                        </div>
+                    </div>
+                </div>
+
+                <div className={styles.paragraph}>
+                    <div className={styles.authorAvatar}>
+                        <ConvAvatar size={34} name={''} coverImg={'/assets/img/2977aa404ccb3e9ed56890aa3fee11c9.png'}/>
+                    </div>
+                    <div className={styles.paragraphContent}>
+                        <div className={styles.message}>Accentors peregrinationes!
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <div style={{height: '48px', padding: 8}}>
+                <input type="text" style={{height: '100%', width: '100%'}}/>
             </div>
         </div>
     )

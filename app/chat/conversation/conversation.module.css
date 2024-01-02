@@ -10,7 +10,7 @@
     padding: 8px;
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
@@ -38,9 +38,9 @@
 
 .paragraphs {
     display: block;
-    height: 100%;
-    padding-top: 64px;
-
+    height: calc(100% - 48px);
+    margin-top: 64px;
+    overflow-y: auto;
 }
 
 
@@ -65,8 +65,8 @@
 }
 
 .authorAvatar {
-    padding: 8px;
-    height: 56px;
+    padding: 8px 8px 0 8px;
+    height: 42px;
 }
 
 .paragraphContent {
