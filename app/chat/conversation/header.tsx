@@ -27,7 +27,7 @@ export function Header() {
     const item = {
         id: '5',
         coverImg: '/assets/img/2977aa404ccb3e9ed56890aa3fee11c9.png',
-        name: 'Albert Bell',
+        name: 'Fullsnack Designers',
         lastMsgTimeFmt: '',
         lastMsgCnt: '7 Online, from 12 peoples',
         lastMsgCount: 0,

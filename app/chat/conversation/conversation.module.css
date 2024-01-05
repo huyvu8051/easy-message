@@ -3,14 +3,16 @@
     position: relative;
     padding: 8px;
     width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .header {
+    padding-bottom: 8px;
     height: 64px;
-    padding: 8px;
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-    position: fixed;
+    position: relative;
     top: 0;
     left: 0;
     right: 0;
@@ -36,9 +38,9 @@
 }
 
 .paragraphs {
+    flex: 1;
     display: block;
     height: calc(100% - 64px);
-    margin-top: 64px;
     overflow-y: auto;
 }
 
@@ -123,7 +125,7 @@
     padding: 8px;
     border-radius: 8px;
     outline: none;
-    background-color: bisque;
+    /*background-color: bisque;*/
     color: #1B1A57;
 
     /* Body Text - Regular */

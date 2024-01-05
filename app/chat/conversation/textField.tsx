@@ -24,7 +24,7 @@ export function TextField({onPushMessage}: { onPushMessage?: Function }) {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} /*style={{paddingTop: 8}}*/>
             <input
                 ref={inputRef}
                 className={styles.textInput}
