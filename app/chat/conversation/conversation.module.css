@@ -35,10 +35,9 @@
     opacity: .8;
 }
 
-
 .paragraphs {
     display: block;
-    height: calc(100% - 48px);
+    height: calc(100% - 64px);
     margin-top: 64px;
     overflow-y: auto;
 }
@@ -55,12 +54,11 @@
     display: flex;
     flex-direction: row;
     align-items: end;
-    margin: 16px 90px 0 0;
-
+    margin: 16px 16px 0 0;
 }
 
 .currentParagraph {
-    margin: 16px 0 0 90px;
+    margin: 16px 0 0 16px;
 
 }
 
@@ -73,13 +71,13 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 4px;
 }
+
 
 .message {
     align-self: start;
     background-color: #F7F7F7;
-    border-radius: 8px;
     padding: 8px 10px;
     color: #1B1A57;
     font-size: 12px;
@@ -88,3 +86,98 @@
     line-height: 18px; /* 150% */
 }
 
+.paragraphContent .message {
+    border-radius: 4px 16px 16px 4px;
+}
+
+.paragraphContent :first-child {
+    border-radius: 16px 16px 16px 4px;
+}
+
+.paragraphContent :last-child {
+    border-radius: 4px 16px 16px 16px;
+}
+
+.paragraphContent :first-child:only-child {
+    border-radius: 16px;
+}
+
+.currentParagraph .message {
+    border-radius: 16px 4px 4px 16px;
+}
+
+.currentParagraph :first-child {
+    border-radius: 16px 16px 4px 16px;
+}
+
+.currentParagraph :last-child {
+    border-radius: 16px 4px 16px 16px;
+}
+
+.currentParagraph :first-child:only-child {
+    border-radius: 16px;
+}
+
+.textInput {
+    width: 100%;
+    padding: 8px;
+    border-radius: 8px;
+    outline: none;
+    background-color: bisque;
+    color: #1B1A57;
+
+    /* Body Text - Regular */
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px; /* 150% */
+}
+
+
+.message .msgHeaderAuthorName {
+    display: inline-block;
+    float: left;
+
+    color: #F2994A;
+
+    /* Body Text - Medium */
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.message .msgHeaderAuthorRole {
+    display: inline-block;
+    float: right;
+    color: #A1A1BC;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px;
+}
+
+.message .msgFooterTime {
+    display: inline-block;
+    float: right;
+    color: #A1A1BC;
+
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+
+.msgHeader::after {
+    content: '';
+    clear: both;
+    display: table;
+}
+
+.msgHeader {
+    margin-bottom: 8px;
+}
+.msgFooter {
+    /*margin-top: 8px;*/
+}

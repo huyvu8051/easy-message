@@ -3,6 +3,7 @@
 import {ConvAvatar} from '@/app/chat/convAvatar'
 import styles from '@/app/chat/conversation/conversation.module.css'
 import {Header} from '@/app/chat/conversation/header'
+import {TextField} from '@/app/chat/conversation/textField'
 import {useSideNav} from '@/app/chat/SideNavContext'
 import React from 'react'
 
@@ -30,7 +31,7 @@ const paragraphs: Paragraph[] = [
         convId: 1,
         uId: 1,
         uFullNm: 'Mike Mazowski',
-        uAvatar: '/public/assets/img/0915363a2c70375926d3e4a60ea94e15.png',
+        uAvatar: '/assets/img/0915363a2c70375926d3e4a60ea94e15.png',
         uRole: 'Admin',
         uMsgTime: 12345687,
         uMsgTimeFmt: '16:04',
@@ -52,7 +53,7 @@ const paragraphs: Paragraph[] = [
         convId: 2,
         uId: 2,
         uFullNm: 'Sully Sullivan',
-        uAvatar: '/public/assets/img/another_avatar.png',
+        uAvatar: '/assets/img/1bd4dd6069428f64473bd4e633b7c00b.png',
         uRole: 'User',
         uMsgTime: 12345689,
         uMsgTimeFmt: '16:06',
@@ -74,7 +75,7 @@ const paragraphs: Paragraph[] = [
         convId: 3,
         uId: 3,
         uFullNm: 'Boo',
-        uAvatar: '/public/assets/img/yet_another_avatar.png',
+        uAvatar: '/assets/img/4f6dc3624a44fb5e01e406158e3d1b49.jpg',
         uRole: 'User',
         uMsgTime: 12345692,
         uMsgTimeFmt: '16:09',
@@ -100,27 +101,102 @@ export function Conversation() {
     const {isSideNavOpen} = useSideNav()
 
 
+    const handlePushMessage = (message: MessageContent) => {
+
+    }
+
     return (
         <div className={styles.container} style={isSideNavOpen ? {} : {}}>
             <Header/>
             <div className={styles.paragraphs}>
+                {
+                    paragraphs.map(paraItem=>(
+                        <div key={paraItem.uMsgTime} className={styles.paragraph}>
+                            <div className={styles.authorAvatar}>
+                                <ConvAvatar size={34} name={''} coverImg={paraItem.uAvatar}/>
+                            </div>
+                            <div className={styles.paragraphContent}>
+                                {
+                                    paraItem.msgContents.map((msgItem, msgIndex)=>(
+                                        <div key={msgItem.msgTime} className={styles.message}>
+                                            {
+                                                !msgIndex && (
+                                                    <div className={styles.msgHeader}>
+                                                        <div className={styles.msgHeaderAuthorName}>
+                                                            {paraItem.uFullNm}
+                                                        </div>
+                                                        <div className={styles.msgHeaderAuthorRole}>
+                                                            {paraItem.uRole}
+                                                        </div>
+                                                    </div>
+                                                )
+                                            }
+                                            <div className={styles.msgText}>
+                                                {msgItem.content}
+                                            </div>
+                                            {
+                                                !msgIndex && (
+                                                    <div className={styles.msgFooter}>
+                                                        <div className={styles.msgFooterTime}>
+                                                            {msgItem.msgTimeFmt}
+                                                        </div>
+                                                    </div>
+                                                )
+                                            }
+                                        </div>
+                                    ))
+                                }
+                            </div>
+                        </div>
+                    ))
+                }
+
                 <div className={styles.paragraph}>
                     <div className={styles.authorAvatar}>
                         <ConvAvatar size={34} name={''} coverImg={'/assets/img/2977aa404ccb3e9ed56890aa3fee11c9.png'}/>
                     </div>
                     <div className={styles.paragraphContent}>
-                        <div className={styles.message}>Audax, grandis gabaliums unus quaestio de altus, lotus
-                            sensorem.
+                        <div className={styles.message}>
+                            <div className={styles.msgHeader}>
+                                <div className={styles.msgHeaderAuthorName}>
+                                    Mike Mazowski
+                                </div>
+                                <div className={styles.msgHeaderAuthorRole}>
+                                    admin
+                                </div>
+                            </div>
+                            <div className={styles.msgText}>
+                                Hello guys, we have discussed about post-corona vacation plan and our decision is to go
+                                to Bali. We will have a very big party after this corona ends! These are some images
+                                about our destination
+                            </div>
+                            <div className={styles.msgFooter}>
+                                <div className={styles.msgFooterTime}>
+                                    16:04
+                                </div>
+                            </div>
                         </div>
-                        <div className={styles.message}>Parmas volare in regius brigantium!</div>
+                        <div className={styles.message}>
+                            <div className={styles.msgText}>
+                                Parmas volare in regius brigantium!
+                            </div>
+                        </div>
                         <div className={styles.message}>Parma brevis tus est.</div>
                     </div>
                 </div>
 
                 <div className={`${styles.paragraph} ${styles.currentParagraph}`}>
                     <div className={styles.paragraphContent}>
-                        <div className={styles.message}>Audax, grandis gabaliums unus quaestio de altus, lotus
-                            sensorem.
+                        <div className={styles.message}>
+                            <div className={styles.msgText}>
+                                Audax, grandis gabaliums unus quaestio de altus, lotus
+                                sensorem.
+                            </div>
+                            <div className={styles.msgFooter}>
+                                <div className={styles.msgFooterTime} style={{color: '#fff'}}>
+                                    16:04
+                                </div>
+                            </div>
                         </div>
                         <div className={styles.message}>Parmas volare in regius brigantium!</div>
                         <div className={styles.message}>Parma brevis tus est.</div>
@@ -162,9 +238,7 @@ export function Conversation() {
                 </div>
 
             </div>
-            <div style={{height: '48px', padding: 8}}>
-                <input type="text" style={{height: '100%', width: '100%'}}/>
-            </div>
+            <TextField onPushMessage={handlePushMessage}/>
         </div>
     )
 }
