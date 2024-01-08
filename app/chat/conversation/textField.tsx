@@ -1,7 +1,8 @@
+import {MessageContent} from '@/app/chat/conversation/conversation'
 import styles from '@/app/chat/conversation/conversation.module.css'
 import React, {FormEvent, KeyboardEvent, useRef} from 'react'
 
-export function TextField({onPushMessage}: { onPushMessage?: Function }) {
+export function TextField({onPushMessage}: { onPushMessage?: (messageContent: MessageContent) => void }) {
     const inputRef = useRef<HTMLInputElement>(null)
     const handleSubmit = (event: FormEvent) => {
         event.preventDefault()
@@ -11,14 +12,18 @@ export function TextField({onPushMessage}: { onPushMessage?: Function }) {
     const handleKeyDown = (event: KeyboardEvent) => {
         if (event.keyCode === 13 && !event.shiftKey) {
             event.preventDefault()
-            console.log('submit ', inputRef.current?.value)
-            inputRef.current ? inputRef.current.value = '' : null
+
 
             if (onPushMessage) {
                 onPushMessage({
-                    text: inputRef.current?.value
+                    msgTime: new Date().getTime(),
+                    content: inputRef.current?.value ?? '',
+                    msgTimeFmt: '',
+                    uId: 1
                 })
             }
+
+            inputRef.current ? inputRef.current.value = '' : null
 
         }
     }

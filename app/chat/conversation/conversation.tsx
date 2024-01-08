@@ -5,14 +5,17 @@ import styles from '@/app/chat/conversation/conversation.module.css'
 import {Header} from '@/app/chat/conversation/header'
 import {TextField} from '@/app/chat/conversation/textField'
 import {useSideNav} from '@/app/chat/SideNavContext'
-import React from 'react'
+import React, {useCallback, useState} from 'react'
 
 
-type MessageContent = {
+export type MessageContent = {
     content: string,
     msgTime: number,
-    msgTimeFmt: string
+    msgTimeFmt: string,
+    uId: number
 }
+
+
 
 
 type Paragraph = {
@@ -33,19 +36,21 @@ const paragraphs: Paragraph[] = [
         uFullNm: 'Mike Mazowski',
         uAvatar: '/assets/img/0915363a2c70375926d3e4a60ea94e15.png',
         uRole: 'Admin',
-        uMsgTime: 12345687,
+        uMsgTime: 32345687,
         uMsgTimeFmt: '16:04',
         uStatus: 'online',
         msgContents: [
             {
+                uId: 1,
                 content: 'Hello guys, we have discussed the post-corona vacation plan, and our decision is to go to Bali. We will have a very big party after this corona ends! These are some images of our destination.',
                 msgTime: 12345678,
-                msgTimeFmt: '16:04'
+                msgTimeFmt: '16:04',
             },
             {
+                uId: 1,
                 content: 'Check out these amazing beaches in Bali!',
                 msgTime: 12345688,
-                msgTimeFmt: '16:05'
+                msgTimeFmt: '16:05',
             }
         ]
     },
@@ -55,16 +60,18 @@ const paragraphs: Paragraph[] = [
         uFullNm: 'Sully Sullivan',
         uAvatar: '/assets/img/1bd4dd6069428f64473bd4e633b7c00b.png',
         uRole: 'User',
-        uMsgTime: 12345689,
+        uMsgTime: 22345689,
         uMsgTimeFmt: '16:06',
         uStatus: 'offline',
         msgContents: [
             {
+                uId: 2,
                 content: 'Sounds like a fantastic plan! I can\'t wait for the party!',
                 msgTime: 12345690,
                 msgTimeFmt: '16:07'
             },
             {
+                uId: 2,
                 content: 'I heard Bali has great local cuisine. Can\'t wait to try it!',
                 msgTime: 12345691,
                 msgTimeFmt: '16:08'
@@ -82,11 +89,13 @@ const paragraphs: Paragraph[] = [
         uStatus: 'online',
         msgContents: [
             {
+                uId: 3,
                 content: 'I just booked my flight to Bali! Super excited!',
                 msgTime: 12345693,
                 msgTimeFmt: '16:10'
             },
             {
+                uId: 3,
                 content: 'Do we have a plan for sightseeing?',
                 msgTime: 12345694,
                 msgTimeFmt: '16:11'
@@ -100,17 +109,26 @@ const paragraphs: Paragraph[] = [
 export function Conversation() {
     const {isSideNavOpen} = useSideNav()
 
+    const [paras, setParas] = useState(paragraphs.sort((a, b)=>a.uMsgTime - b.uMsgTime))
 
-    const handlePushMessage = (message: MessageContent) => {
 
-    }
+    const handlePushMessage = useCallback((message: MessageContent) => {
+        if(paras[paras.length - 1].uId === message.uId){
+            paras[paras.length - 1].msgContents.push(message)
+            setParas([...paras])
+        }else {
+
+        }
+    }, [paras])
+
+    console.log('render')
 
     return (
         <div className={styles.container} style={isSideNavOpen ? {} : {}}>
             <Header/>
             <div className={styles.paragraphs}>
                 {
-                    paragraphs.map(paraItem=>(
+                    paras.map(paraItem=>(
                         <div key={paraItem.uMsgTime} className={styles.paragraph}>
                             <div className={styles.authorAvatar}>
                                 <ConvAvatar size={34} name={''} coverImg={paraItem.uAvatar}/>
@@ -151,7 +169,7 @@ export function Conversation() {
                     ))
                 }
 
-                <div className={styles.paragraph}>
+                {/*<div className={styles.paragraph}>
                     <div className={styles.authorAvatar}>
                         <ConvAvatar size={34} name={''} coverImg={'/assets/img/2977aa404ccb3e9ed56890aa3fee11c9.png'}/>
                     </div>
@@ -235,7 +253,7 @@ export function Conversation() {
                         </div>
 
                     </div>
-                </div>
+                </div>*/}
 
             </div>
             <TextField onPushMessage={handlePushMessage}/>

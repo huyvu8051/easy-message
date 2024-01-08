@@ -7,7 +7,8 @@ import {Header} from '@/app/chat/navigation/header'
 import styles from '@/app/chat/navigation/navigation.module.css'
 
 import {useSideNav} from '@/app/chat/SideNavContext'
-import React from 'react'
+import React, {useEffect, useState} from 'react'
+import {log} from 'util'
 
 
 const conversations: ConversationType[] = [
@@ -60,6 +61,14 @@ const conversations: ConversationType[] = [
     }]
 
 export function Navigation() {
+    const [convs, setConvs] = useState([])
+
+    useEffect(()=>{
+        fetch('https://659b4e7ed565feee2daaf22f.mockapi.io/conversation')
+            .then(res=>res.json())
+            .then(json=>setConvs(json))
+    }, [])
+
     const {isSideNavOpen, toggleSideNav} = useSideNav()
 
     const handleOpenConv = (item: ConversationType) => {
@@ -78,7 +87,7 @@ export function Navigation() {
             <div className={styles.navPadding}>
                 <Header/>
                 <ul>
-                    {conversations.map((e: ConversationType) => {
+                    {convs.map((e: ConversationType) => {
                         return (
                             <li key={e.id} onClick={() => handleOpenConv(e)}>
                                 <ConvAvatar {...e}/>
