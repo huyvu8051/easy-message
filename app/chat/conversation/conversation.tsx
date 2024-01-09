@@ -7,6 +7,7 @@ import {TextField} from '@/app/chat/conversation/textField'
 import {useSideNav} from '@/app/chat/SideNavContext'
 import React, {useCallback, useEffect, useRef, useState} from 'react'
 
+
 let SortedSet = require('collections/sorted-set')
 
 export type Member = {
@@ -234,6 +235,16 @@ const messages: MessageContent[] = [
         msgTime: Date.now() - 1800000,
         uId: 8,
         cId: 1
+    },{
+        content: 'Pius, rusticus naviss saepe consumere de bassus, superbus orexis.',
+        msgTime: Date.now() - 1800000,
+        uId: 8,
+        cId: 1
+    },{
+        content: 'Golden, rainy ales roughly fire an addled, shiny gold.',
+        msgTime: Date.now() - 1800000,
+        uId: 8,
+        cId: 1
     },
     {
         content: 'Started a new hobby – painting. It\'s therapeutic!',
@@ -338,7 +349,7 @@ export function Conversation() {
         messages.forEach((msg, index) => {
             const timeout = setTimeout(args => {
                 handlePushMessage(msg)
-            }, 500 * index)
+            }, 100 * index)
             timeouts.push(timeout)
         })
         return () => {
@@ -479,7 +490,7 @@ export function Conversation() {
 
                     </div>
                 </div>*/}
-                <div style={{height: 10, width: '100%'}}
+                <div style={{height: 16, width: '100%'}}
                      ref={messagesEndRef}>
                 </div>
             </div>

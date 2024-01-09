@@ -68,3 +68,5 @@ S
 #app/chat/conversation/textField.tsx,c\f\cff52aefd619b918425c03bb0a5b76f27f187a61
 N
 app/chat/conversation.type.tsx,f\1\f14e2602ed4bdbd28bec5837ea51c5d8aec53be0
+N
+app/chat/convAvatar.module.css,3\6\36ab26a5c4e5398509b9eaf6f68e6fd6cb8470f7

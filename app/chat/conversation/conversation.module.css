@@ -57,6 +57,7 @@
     flex-direction: row;
     align-items: end;
     margin: 16px 16px 0 0;
+    transition: opacity 0.5s ease;
 }
 
 .currentParagraph {
@@ -66,7 +67,6 @@
 
 .authorAvatar {
     padding: 8px 8px 0 8px;
-    height: 42px;
 }
 
 .paragraphContent {
