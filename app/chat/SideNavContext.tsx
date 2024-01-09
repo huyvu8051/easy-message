@@ -3,12 +3,12 @@
 import React, {createContext, useContext, useState} from 'react'
 
 const SideNavContext = createContext({
-    isSideNavOpen: true,
+    isSideNavOpen: false,
     toggleSideNav: (): void => {}
 })
 
 const SideNavProvider = ({children}: { children: React.ReactNode }) => {
-    const [isSideNavOpen, setIsSideNavOpen] = useState(true)
+    const [isSideNavOpen, setIsSideNavOpen] = useState(false)
 
     const toggleSideNav = (): void => {
         setIsSideNavOpen(!isSideNavOpen)

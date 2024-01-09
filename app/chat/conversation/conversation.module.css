@@ -78,7 +78,7 @@
 
 
 .message {
-    align-self: start;
+    align-self: flex-start;
     background-color: #F7F7F7;
     padding: 8px 10px;
     color: #1B1A57;
@@ -146,7 +146,7 @@
     font-size: 12px;
     font-style: normal;
     font-weight: 500;
-    line-height: normal;
+    line-height: 18px;
 }
 
 .message .msgHeaderAuthorRole {

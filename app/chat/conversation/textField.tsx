@@ -1,6 +1,6 @@
 import {MessageContent} from '@/app/chat/conversation/conversation'
 import styles from '@/app/chat/conversation/conversation.module.css'
-import React, {FormEvent, KeyboardEvent, useRef} from 'react'
+import React, {FormEvent, KeyboardEvent, useEffect, useRef} from 'react'
 
 export function TextField({onPushMessage}: { onPushMessage?: (messageContent: MessageContent) => void }) {
     const inputRef = useRef<HTMLInputElement>(null)
@@ -9,6 +9,10 @@ export function TextField({onPushMessage}: { onPushMessage?: (messageContent: Me
         // handle form submission here
     }
 
+
+    const getRandomIdleTime = () => Math.floor(Math.random() * (5000 - 5000 + 1) + 500);
+
+
     const handleKeyDown = (event: KeyboardEvent) => {
         if (event.keyCode === 13 && !event.shiftKey) {
             event.preventDefault()
@@ -16,10 +20,14 @@ export function TextField({onPushMessage}: { onPushMessage?: (messageContent: Me
 
             if (onPushMessage) {
                 onPushMessage({
+
+
+
                     msgTime: new Date().getTime(),
                     content: inputRef.current?.value ?? '',
                     msgTimeFmt: '',
-                    uId: 1
+                    uId: Math.floor(Math.random() * 3) + 1,
+                    cId: 1
                 })
             }
 
