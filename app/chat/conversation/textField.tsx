@@ -16,21 +16,18 @@ export function TextField({onPushMessage}: { onPushMessage?: (messageContent: Me
         // handle form submission here
     }
 
-
-    const getRandomIdleTime = () => Math.floor(Math.random() * (5000 - 5000 + 1) + 500);
-
-
     const handleKeyDown = (event: KeyboardEvent) => {
-        if (event.keyCode === 13 && !event.shiftKey) {
+        if (event.key === 'Enter' && !event.shiftKey) {
             event.preventDefault()
-            const date = faker.date.recent()
+            const date = new Date()
 
             if (onPushMessage) {
                 onPushMessage({
                     content: inputRef.current?.value ?? '',
                     msgTime: date.getTime(),
                     msgTimeFmt: dateTimeFormater.format(date),
-                    uId: faker.number.int({min: 1, max: 4}),
+                    // uId: faker.number.int({min: 1, max: 4}),
+                    uId: 4,
                     cId: 1
 
                 })

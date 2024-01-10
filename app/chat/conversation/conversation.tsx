@@ -87,6 +87,8 @@ const dateTimeFormater = new Intl.DateTimeFormat('en-US', {
 export function Conversation() {
     const {isSideNavOpen} = useSideNav()
 
+    const currUId = 4
+
     const messagesEndRef = useRef<HTMLDivElement>(null)
 
     const [sortedSetMsgs, setSortedSetMsg] = useState(new SortedSet([], (a: MessageContent, b: MessageContent) => a.msgTime === b.msgTime, (a: MessageContent, b: MessageContent) => b.msgTime - a.msgTime))
@@ -116,14 +118,8 @@ export function Conversation() {
     function pushMsgIntoParagraph(msg: MessageContent, paragraph: Paragraph) {
         msg.paragraph = paragraph
 
-        for (let i = 0; i < paragraph.msgContents.length; i++) {
-            if (paragraph.msgContents[i].msgTime < msg.msgTime) {
-                paragraph.msgContents.splice(i + 1, 0, msg)
-                return
-            }
-        }
-
         paragraph.msgContents.push(msg)
+        paragraph.msgContents = paragraph.msgContents.sort((a, b) => a.msgTime - b.msgTime)
 
     }
 
@@ -159,20 +155,22 @@ export function Conversation() {
 
     useEffect(() => {
         messagesEndRef.current?.parentElement?.scrollIntoView({behavior: 'smooth'})
-        messagesEndRef.current?.classList.add('newMsg')
+        setTimeout(()=>{
+            messagesEndRef.current?.classList.add('newMsg')
+        }, 1)
     }, [paragraphs])
 
 
     useEffect(() => {
         const timeouts: number[] = []
-        Array.from({length: 1000}).forEach((msg, index) => {
+        Array.from({length: 5}).forEach((msg, index) => {
             const timeout = setTimeout(args => {
                 const date = faker.date.recent()
                 handlePushMessage({
                     content: faker.lorem.sentence(),
                     msgTime: date.getTime(),
                     msgTimeFmt: dateTimeFormater.format(date),
-                    uId: faker.number.int({min: 1, max: 4}),
+                    uId: faker.number.int({min: 1, max: 3}),
                     cId: 1
 
                 })
@@ -190,135 +188,77 @@ export function Conversation() {
             <Header/>
             <div className={styles.paragraphs}>
                 {
-                    paragraphs.map(paraItem => (
-                        <div key={paraItem.uMsgTime} className={styles.paragraph} >
-                            <div className={styles.authorAvatar}>
-                                <ConvAvatar size={34} name={''} coverImg={paraItem.user?.avatar ?? ''}/>
-                            </div>
-                            <div className={styles.paragraphContent}>
-                                {
-                                    paraItem.msgContents.map((msgItem, msgIndex) => (
-                                        <div key={msgItem.msgTime} className={styles.message} {...{ref:messagesEndRef}}>
-                                            {
-                                                !msgIndex && (
-                                                    <div className={styles.msgHeader}>
-                                                        <div className={styles.msgHeaderAuthorName}>
-                                                            {paraItem.user?.name ?? ''}
-                                                        </div>
-                                                        <div className={styles.msgHeaderAuthorRole}>
-                                                            {paraItem.user?.role ?? ''}
-                                                        </div>
+                    paragraphs.map(paraItem => {
+                        if(paraItem.userId !== currUId){
+                            return (
+                                <div key={paraItem.uMsgTime} className={styles.paragraph} >
+                                    <div className={styles.authorAvatar}>
+                                        <ConvAvatar size={34} name={''} coverImg={paraItem.user?.avatar ?? ''}/>
+                                    </div>
+                                    <div className={styles.paragraphContent}>
+                                        {
+                                            paraItem.msgContents.map((msgItem, msgIndex) => (
+                                                <div key={msgItem.msgTime} className={styles.message} {...{ref:messagesEndRef}}>
+                                                    {
+                                                        !msgIndex && (
+                                                            <div className={styles.msgHeader}>
+                                                                <div className={styles.msgHeaderAuthorName}>
+                                                                    {paraItem.user?.name ?? ''}
+                                                                </div>
+                                                                <div className={styles.msgHeaderAuthorRole}>
+                                                                    {paraItem.user?.role ?? ''}
+                                                                </div>
+                                                            </div>
+                                                        )
+                                                    }
+                                                    <div className={styles.msgText}>
+                                                        {msgItem.content}
                                                     </div>
-                                                )
-                                            }
-                                            <div className={styles.msgText}>
-                                                {msgItem.content}
-                                            </div>
-                                            {
-                                                !msgIndex && (
-                                                    <div className={styles.msgFooter}>
-                                                        <div className={styles.msgFooterTime}>
-                                                            {msgItem.msgTimeFmt}
-                                                        </div>
+                                                    {
+                                                        !msgIndex && (
+                                                            <div className={styles.msgFooter}>
+                                                                <div className={styles.msgFooterTime}>
+                                                                    {msgItem.msgTimeFmt}
+                                                                </div>
+                                                            </div>
+                                                        )
+                                                    }
+                                                </div>
+                                            ))
+                                        }
+                                    </div>
+                                </div>
+
+                            )
+                        }else {
+                            return (
+                                <div key={paraItem.uMsgTime}  className={`${styles.paragraph} ${styles.currentParagraph}`}>
+                                    <div className={styles.paragraphContent}>
+                                        {
+                                            paraItem.msgContents.map((msgItem, msgIndex) => (
+                                                <div key={msgItem.msgTime} className={styles.message} {...{ref:messagesEndRef}} style={{border: '1px solid rgba(0,0,0,0)'}}>
+                                                    <div className={styles.msgText}>
+                                                        {msgItem.content}
                                                     </div>
-                                                )
-                                            }
-                                        </div>
-                                    ))
-                                }
-                            </div>
-                        </div>
-                    ))
+                                                    {
+                                                        !msgIndex && (
+                                                            <div className={styles.msgFooter}>
+                                                                <div className={styles.msgFooterTime} style={{color: '#fff'}}>
+                                                                    {msgItem.msgTimeFmt}
+                                                                </div>
+                                                            </div>
+                                                        )
+                                                    }
+                                                </div>
+                                            ))
+                                        }
+                                    </div>
+                                </div>
+                            )
+                        }
+                    })
                 }
 
-                {/*<div className={styles.paragraph}>
-                    <div className={styles.authorAvatar}>
-                        <ConvAvatar size={34} name={''} coverImg={'/assets/img/2977aa404ccb3e9ed56890aa3fee11c9.png'}/>
-                    </div>
-                    <div className={styles.paragraphContent}>
-                        <div className={styles.message}>
-                            <div className={styles.msgHeader}>
-                                <div className={styles.msgHeaderAuthorName}>
-                                    Mike Mazowski
-                                </div>
-                                <div className={styles.msgHeaderAuthorRole}>
-                                    admin
-                                </div>
-                            </div>
-                            <div className={styles.msgText}>
-                                Hello guys, we have discussed about post-corona vacation plan and our decision is to go
-                                to Bali. We will have a very big party after this corona ends! These are some images
-                                about our destination
-                            </div>
-                            <div className={styles.msgFooter}>
-                                <div className={styles.msgFooterTime}>
-                                    16:04
-                                </div>
-                            </div>
-                        </div>
-                        <div className={styles.message}>
-                            <div className={styles.msgText}>
-                                Parmas volare in regius brigantium!
-                            </div>
-                        </div>
-                        <div className={styles.message}>Parma brevis tus est.</div>
-                    </div>
-                </div>
-
-                <div className={`${styles.paragraph} ${styles.currentParagraph}`}>
-                    <div className={styles.paragraphContent}>
-                        <div className={styles.message}>
-                            <div className={styles.msgText}>
-                                Audax, grandis gabaliums unus quaestio de altus, lotus
-                                sensorem.
-                            </div>
-                            <div className={styles.msgFooter}>
-                                <div className={styles.msgFooterTime} style={{color: '#fff'}}>
-                                    16:04
-                                </div>
-                            </div>
-                        </div>
-                        <div className={styles.message}>Parmas volare in regius brigantium!</div>
-                        <div className={styles.message}>Parma brevis tus est.</div>
-                    </div>
-                </div>
-
-                <div className={styles.paragraph}>
-                    <div className={styles.authorAvatar}>
-                        <ConvAvatar size={34} name={''} coverImg={'/assets/img/2977aa404ccb3e9ed56890aa3fee11c9.png'}/>
-                    </div>
-                    <div className={styles.paragraphContent}>
-                        <div className={styles.message}>Not heavens or chaos, forget the silence.
-                        </div>
-                        <div className={styles.message}>Teres, neuter habenas aegre convertam de fortis, placidus
-                            exemplar.
-                        </div>
-                        <div className={styles.message}>Zetas sunt rumors de neuter candidatus.</div>
-                        <div className={styles.message}>Barcass sunt detriuss de raptus eleates.</div>
-                    </div>
-                </div>
-
-                <div className={`${styles.paragraph} ${styles.currentParagraph}`}>
-                    <div className={styles.paragraphContent}>
-                        <div className={styles.message}>
-                            Audax amors ducunt ad detrius.
-                        </div>
-                    </div>
-                </div>
-
-                <div className={styles.paragraph}>
-                    <div className={styles.authorAvatar}>
-                        <ConvAvatar size={34} name={''} coverImg={'/assets/img/2977aa404ccb3e9ed56890aa3fee11c9.png'}/>
-                    </div>
-                    <div className={styles.paragraphContent}>
-                        <div className={styles.message}>Accentors peregrinationes!
-                        </div>
-
-                    </div>
-                </div>*/}
-                {/*<div style={{height: 0, width: '100%'}}
-                     ref={messagesEndRef}>
-                </div>*/}
             </div>
             <TextField onPushMessage={handlePushMessage}/>
         </div>
