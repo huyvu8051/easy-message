@@ -42,6 +42,7 @@
     display: block;
     height: calc(100% - 64px);
     overflow-y: auto;
+    padding-bottom: 16px;
 }
 
 
