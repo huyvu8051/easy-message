@@ -38,3 +38,11 @@ body main {
     box-sizing: border-box;
 }
 
+.newMsg {
+    border: 1px solid rgba(255, 0, 0 , 0);
+    animation: blink 1s 2;
+    animation-fill-mode: forwards;
+}
+
+@keyframes blink { 50% { border-color:#f00 ; }  }
+

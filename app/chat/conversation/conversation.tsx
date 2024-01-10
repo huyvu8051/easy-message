@@ -39,31 +39,31 @@ type Paragraph = {
 
 const members: Member[] = [
     {
-        name: 'John Doe',
+        name: 'Alice Doe',
         role: 'Developer',
         uId: 1,
-        avatar: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1141.jpg',
+        avatar: '/assets/img/1bd4dd6069428f64473bd4e633b7c00b.png',
         status: 'Active'
     },
     {
         name: 'Jane Doe',
         role: 'Designer',
         uId: 2,
-        avatar: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/653.jpg',
+        avatar: '/assets/img/4f6dc3624a44fb5e01e406158e3d1b49.jpg',
         status: 'Inactive'
     },
     {
         name: 'Alice Smith',
         role: 'Manager',
         uId: 3,
-        avatar: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/115.jpg',
+        avatar: '/assets/img/34d0c3811e30299006dfa8f78b2cd446.png',
         status: 'Active'
     },
     {
         name: 'Bob Johnson',
         role: 'Tester',
         uId: 4,
-        avatar: 'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/467.jpg',
+        avatar: '/assets/img/2977aa404ccb3e9ed56890aa3fee11c9.png',
         status: 'Active'
     }
 
@@ -165,7 +165,7 @@ export function Conversation() {
 
     useEffect(() => {
         const timeouts: number[] = []
-        Array.from({length: 50}).forEach((msg, index) => {
+        Array.from({length: 1000}).forEach((msg, index) => {
             const timeout = setTimeout(args => {
                 const date = faker.date.recent()
                 handlePushMessage({
