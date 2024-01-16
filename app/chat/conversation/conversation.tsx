@@ -6,7 +6,7 @@ import {Header} from '@/app/chat/conversation/header'
 import {TextField} from '@/app/chat/conversation/textField'
 import {useSideNav} from '@/app/chat/SideNavContext'
 import {faker} from '@faker-js/faker'
-import React, {RefObject, useCallback, useEffect, useRef, useState} from 'react'
+import React, {RefObject, useCallback, useEffect, useLayoutEffect, useRef, useState} from 'react'
 
 let SortedSet = require('collections/sorted-set')
 
@@ -84,9 +84,70 @@ const dateTimeFormater = new Intl.DateTimeFormat('en-US', {
     hour12: false
 })
 
+
+function rmMsgSize() {
+    const list = document.querySelectorAll<HTMLSpanElement>('.msgText')
+
+    list.forEach((value, key) => {
+        const w = value.offsetWidth
+        const parentElement = value.parentElement
+        if (parentElement) {
+            parentElement.style.width = 'auto'
+        }
+    })
+
+}
+
+function fitMsgSize() {
+    const list = document.querySelectorAll<HTMLSpanElement>('.msgText')
+
+    list.forEach((value, key) => {
+        const w = value.offsetWidth
+        const parentElement = value.parentElement
+        if (parentElement) {
+            parentElement.style.width = (w + 1) + 'px'
+        }
+    })
+
+    console.log('change size')
+}
+
+
+interface WindowSizeHook {
+    rmMsgSize: () => void;
+    fitMsgSize: () => void;
+}
+
+function useWindowSize(): WindowSizeHook {
+    useLayoutEffect(() => {
+        const debounce = (func: Function, delay: number) => {
+            let timeoutId: NodeJS.Timeout
+            return function (...args: any[]) {
+                clearTimeout(timeoutId)
+                timeoutId = setTimeout(() => func.apply(this, args), delay)
+            }
+        }
+
+        const updateSize = debounce(() => {
+            rmMsgSize()
+            fitMsgSize()
+        }, 50)
+
+
+        window.addEventListener('resize', updateSize)
+        updateSize()
+
+        return () => window.removeEventListener('resize', updateSize)
+    }, [])
+
+    // Return the functions to make them accessible
+    return {rmMsgSize, fitMsgSize}
+}
+
+
 export function Conversation() {
     const {isSideNavOpen} = useSideNav()
-
+    useWindowSize()
     const currUId = 4
 
     const messagesEndRef = useRef<HTMLDivElement>(null)
@@ -94,7 +155,6 @@ export function Conversation() {
     const [sortedSetMsgs, setSortedSetMsg] = useState(new SortedSet([], (a: MessageContent, b: MessageContent) => a.msgTime === b.msgTime, (a: MessageContent, b: MessageContent) => b.msgTime - a.msgTime))
 
     const [paragraphs, setParagraphs] = useState<Paragraph[]>([])
-
 
 
     /**
@@ -145,8 +205,6 @@ export function Conversation() {
         }
 
 
-
-
         sortedSetMsgs.push(msg)
         setParagraphs([...paragraphs])
 
@@ -155,15 +213,17 @@ export function Conversation() {
 
     useEffect(() => {
         messagesEndRef.current?.parentElement?.scrollIntoView({behavior: 'smooth'})
-        setTimeout(()=>{
+        setTimeout(() => {
             messagesEndRef.current?.classList.add('newMsg')
+            fitMsgSize()
+
         }, 1)
     }, [paragraphs])
 
 
     useEffect(() => {
         const timeouts: number[] = []
-        Array.from({length: 5}).forEach((msg, index) => {
+        Array.from({length: 10}).forEach((msg, index) => {
             const timeout = setTimeout(args => {
                 const date = faker.date.recent()
                 handlePushMessage({
@@ -189,16 +249,17 @@ export function Conversation() {
             <div className={styles.paragraphs}>
                 {
                     paragraphs.map(paraItem => {
-                        if(paraItem.userId !== currUId){
+                        if (paraItem.userId !== currUId) {
                             return (
-                                <div key={paraItem.uMsgTime} className={styles.paragraph} >
+                                <div key={paraItem.uMsgTime} className={styles.paragraph}>
                                     <div className={styles.authorAvatar}>
                                         <ConvAvatar size={34} name={''} coverImg={paraItem.user?.avatar ?? ''}/>
                                     </div>
                                     <div className={styles.paragraphContent}>
                                         {
                                             paraItem.msgContents.map((msgItem, msgIndex) => (
-                                                <div key={msgItem.msgTime} className={styles.message} {...{ref:messagesEndRef}}>
+                                                <div key={msgItem.msgTime}
+                                                     className={styles.message} {...{ref: messagesEndRef}}>
                                                     {
                                                         !msgIndex && (
                                                             <div className={styles.msgHeader}>
@@ -211,8 +272,8 @@ export function Conversation() {
                                                             </div>
                                                         )
                                                     }
-                                                    <div className={styles.msgText}>
-                                                        {msgItem.content}
+                                                    <div className={`${styles.msgText}`}>
+                                                        <span className={'msgText'}>{msgItem.content}</span>
                                                     </div>
                                                     {
                                                         !msgIndex && (
@@ -230,20 +291,24 @@ export function Conversation() {
                                 </div>
 
                             )
-                        }else {
+                        } else {
                             return (
-                                <div key={paraItem.uMsgTime}  className={`${styles.paragraph} ${styles.currentParagraph}`}>
+                                <div key={paraItem.uMsgTime}
+                                     className={`${styles.paragraph} ${styles.currentParagraph}`}>
                                     <div className={styles.paragraphContent}>
                                         {
                                             paraItem.msgContents.map((msgItem, msgIndex) => (
-                                                <div key={msgItem.msgTime} className={styles.message} {...{ref:messagesEndRef}} style={{border: '1px solid rgba(0,0,0,0)'}}>
+                                                <div key={msgItem.msgTime}
+                                                     className={styles.message} {...{ref: messagesEndRef}}
+                                                     style={{border: '1px solid rgba(0,0,0,0)'}}>
                                                     <div className={styles.msgText}>
-                                                        {msgItem.content}
+                                                        <span className={'msgText'}>{msgItem.content}</span>
                                                     </div>
                                                     {
                                                         !msgIndex && (
                                                             <div className={styles.msgFooter}>
-                                                                <div className={styles.msgFooterTime} style={{color: '#fff'}}>
+                                                                <div className={styles.msgFooterTime}
+                                                                     style={{color: '#fff'}}>
                                                                     {msgItem.msgTimeFmt}
                                                                 </div>
                                                             </div>
