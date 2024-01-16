@@ -112,13 +112,7 @@ function fitMsgSize() {
     console.log('change size')
 }
 
-
-interface WindowSizeHook {
-    rmMsgSize: () => void;
-    fitMsgSize: () => void;
-}
-
-function useWindowSize(): WindowSizeHook {
+function useWindowSize() {
     useLayoutEffect(() => {
         const debounce = (func: Function, delay: number) => {
             let timeoutId: NodeJS.Timeout
@@ -141,8 +135,6 @@ function useWindowSize(): WindowSizeHook {
         return () => window.removeEventListener('resize', updateSize)
     }, [])
 
-    // Return the functions to make them accessible
-    return {rmMsgSize, fitMsgSize}
 }
 
 
