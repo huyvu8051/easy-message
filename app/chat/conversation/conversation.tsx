@@ -124,7 +124,8 @@ function useWindowSize(): WindowSizeHook {
             let timeoutId: NodeJS.Timeout
             return function (...args: any[]) {
                 clearTimeout(timeoutId)
-                timeoutId = setTimeout(() => func.apply(this, args), delay)
+
+                timeoutId = setTimeout(() => func.apply(null, args), delay)
             }
         }
 
