@@ -109,7 +109,7 @@ function fitMsgSize() {
         }
     })
 
-    console.log('change size')
+    // console.log('change size')
 }
 
 function useWindowSize() {
@@ -170,7 +170,6 @@ export function Conversation() {
 
     function pushMsgIntoParagraph(msg: MessageContent, paragraph: Paragraph) {
         msg.paragraph = paragraph
-
         paragraph.msgContents.push(msg)
         paragraph.msgContents = paragraph.msgContents.sort((a, b) => a.msgTime - b.msgTime)
 
@@ -181,6 +180,7 @@ export function Conversation() {
         const msgLessThanFound: { value: MessageContent } = sortedSetMsgs.findGreatestLessThanOrEqual(msg)
         const msgGreaterThanFound: { value: MessageContent } = sortedSetMsgs.findLeastGreaterThan(msg)
         if (!msgLessThanFound && !msgGreaterThanFound) {
+            console.log('!msgLessThanFound && !msgGreaterThanFound')
             pushNewBlankParagraph(msg)
         } else {
             const msgFound = msgLessThanFound ?? msgGreaterThanFound
@@ -193,6 +193,7 @@ export function Conversation() {
                     userId: 0
                 })
             } else {
+                console.log('current new para')
                 pushNewBlankParagraph(msg)
             }
         }
@@ -207,8 +208,20 @@ export function Conversation() {
     useEffect(() => {
         messagesEndRef.current?.parentElement?.scrollIntoView({behavior: 'smooth'})
         setTimeout(() => {
-            messagesEndRef.current?.classList.add('newMsg')
-            fitMsgSize()
+
+            const value = messagesEndRef.current
+            if(value){
+                value.classList.add('newMsg')
+
+                const htmlSpanElement = value.querySelector('span')
+                if(htmlSpanElement){
+                    const w = htmlSpanElement.offsetWidth
+                    const parentElement = htmlSpanElement.parentElement
+                    if (parentElement) {
+                        parentElement.style.width = (w + 1) + 'px'
+                    }
+                }
+            }
 
         }, 1)
     }, [paragraphs])
