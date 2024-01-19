@@ -1,3 +1,4 @@
+import {insertUser, selectUserByEmail} from '@/app/lib/user'
 import NextAuth from 'next-auth'
 import AppleProvider from 'next-auth/providers/apple'
 import DiscordProvider from 'next-auth/providers/discord'
@@ -16,8 +17,7 @@ const handler = NextAuth({
 
         DiscordProvider({
             clientId: process.env.DISCORD_CLIENT_ID ?? '',
-            clientSecret: process.env.DISCORD_CLIENT_SECRET ?? '',
-
+            clientSecret: process.env.DISCORD_CLIENT_SECRET ?? ''
         }),
 
         FacebookProvider({
@@ -40,9 +40,47 @@ const handler = NextAuth({
 
 
     ],
-    pages:{
+    pages: {},
+    callbacks: {
+        async signIn(params) {
+            console.log('signIn', params)
 
-    },
+            if (!params.profile?.email) {
+                console.log('Your signin account don\'t have any email, please try again!')
+                return false
+            }
+            /*else if ((params.profile)['verified']) {
+                console.log('Your email must be verification, please try again!')
+                return false
+            }*/
+
+
+            let user = await selectUserByEmail(params.profile?.email ?? '')
+            if (!user) {
+                user = await insertUser({
+                    email: params.profile?.email ?? '',
+                    name: params.profile?.name ?? '',
+                    image: params.profile?.image ?? ''
+                })
+            }
+
+            console.log(user)
+
+            return true
+        },
+        async redirect(params) {
+            console.log('redirect', params)
+            return params.url
+        },
+        async session(params) {
+            console.log('session', params)
+            return params.session
+        },
+        async jwt(params) {
+            console.log('jwt', params)
+            return params.token
+        }
+    }
 
 })
 

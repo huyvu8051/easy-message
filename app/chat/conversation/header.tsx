@@ -8,6 +8,7 @@ import {ConvDetails} from '@/app/chat/navigation/convDetails'
 import {useSideNav} from '@/app/chat/SideNavContext'
 import {faBars} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {useSession} from 'next-auth/react'
 import React from 'react'
 
 function NavToggleBtn() {
@@ -23,6 +24,9 @@ function NavToggleBtn() {
 }
 
 export function Header() {
+
+    const useSession1 = useSession()
+    console.log(useSession1)
 
     const item = {
         id: '5',

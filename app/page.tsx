@@ -1,9 +1,10 @@
 'use client'
 
-import {useRouter} from 'next/navigation'
+import {signIn} from 'next-auth/react'
 
-export default function Page(){
-    const useRouter1 = useRouter()
-    useRouter1.push('/auth')
-    return (<div>redirect to signing page</div>)
+export default function Page() {
+
+    return (<div onClick={() => signIn(undefined, {callbackUrl: '/chat'}).then(r => {
+    }).catch(() => {
+    })}>redirect to signing page</div>)
 }
