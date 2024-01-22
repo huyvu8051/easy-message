@@ -1,15 +1,15 @@
-import {insertUser, selectUserByEmail} from '@/app/lib/user'
+import {selectUserByEmail} from '@/app/lib/user'
+
+import {PrismaAdapter} from '@auth/prisma-adapter'
+import {PrismaClient} from '@prisma/client'
 import NextAuth from 'next-auth'
+import {Adapter} from 'next-auth/adapters'
 import AppleProvider from 'next-auth/providers/apple'
 import DiscordProvider from 'next-auth/providers/discord'
 import FacebookProvider from 'next-auth/providers/facebook'
 import GitHubProvider from 'next-auth/providers/github'
 import GitlabProvider from 'next-auth/providers/gitlab'
 import Google from 'next-auth/providers/google'
-
-import { PrismaAdapter } from "@auth/prisma-adapter"
-import { PrismaClient } from "@prisma/client"
-import {Adapter} from "next-auth/adapters";
 
 const prisma = new PrismaClient()
 
@@ -51,28 +51,6 @@ const handler = NextAuth({
     callbacks: {
         async signIn(params) {
             console.log('signIn', params)
-
-            if (!params.profile?.email) {
-                console.log('Your signin account don\'t have any email, please try again!')
-                return false
-            }
-            /*else if ((params.profile)['verified']) {
-                console.log('Your email must be verification, please try again!')
-                return false
-            }*/
-
-
-            let user = await selectUserByEmail(params.profile?.email ?? '')
-            if (!user) {
-                user = await insertUser({
-                    email: params.profile?.email ?? '',
-                    name: params.profile?.name ?? '',
-                    image: params.profile?.image ?? ''
-                })
-            }
-
-            console.log(user)
-
             return true
         },
         async redirect(params) {
@@ -81,6 +59,10 @@ const handler = NextAuth({
         },
         async session(params) {
             console.log('session', params)
+            /*const userData = await selectUserByEmail(params.session.user?.email ?? '')
+
+            // return params.session
+            params.session.user = {...params.session.user, ...userData}*/
             return params.session
         },
         async jwt(params) {

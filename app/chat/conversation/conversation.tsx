@@ -6,7 +6,16 @@ import {Header} from '@/app/chat/conversation/header'
 import {TextField} from '@/app/chat/conversation/textField'
 import {useSideNav} from '@/app/chat/SideNavContext'
 import {faker} from '@faker-js/faker'
-import React, {RefObject, useCallback, useEffect, useLayoutEffect, useRef, useState} from 'react'
+import React, {
+    forwardRef,
+    MutableRefObject,
+    useCallback,
+    useEffect,
+    useImperativeHandle,
+    useLayoutEffect,
+    useRef,
+    useState
+} from 'react'
 
 let SortedSet = require('collections/sorted-set')
 
@@ -138,8 +147,7 @@ function useWindowSize() {
 }
 
 
-export function Conversation() {
-    const {isSideNavOpen} = useSideNav()
+const ParagraphContainer = forwardRef((props, ref) => {
     useWindowSize()
     const currUId = 4
 
@@ -204,17 +212,20 @@ export function Conversation() {
 
     }, [paragraphs])
 
+    useImperativeHandle(ref, () => ({
+        handlePushMessage
+    }))
 
     useEffect(() => {
         messagesEndRef.current?.parentElement?.scrollIntoView({behavior: 'smooth'})
         setTimeout(() => {
 
             const value = messagesEndRef.current
-            if(value){
+            if (value) {
                 value.classList.add('newMsg')
 
                 const htmlSpanElement = value.querySelector('span')
-                if(htmlSpanElement){
+                if (htmlSpanElement) {
                     const w = htmlSpanElement.offsetWidth
                     const parentElement = htmlSpanElement.parentElement
                     if (parentElement) {
@@ -246,92 +257,107 @@ export function Conversation() {
         return () => {
             timeouts.forEach(to => clearTimeout(to))
         }
-
     }, [])
+    return (
+        <div className={styles.paragraphs}>
+            {
+                paragraphs.map(paraItem => {
+                    if (paraItem.userId !== currUId) {
+                        return (
+                            <div key={paraItem.uMsgTime} className={styles.paragraph}>
+                                <div className={styles.authorAvatar}>
+                                    <ConvAvatar size={34} name={''} coverImg={paraItem.user?.avatar ?? ''}/>
+                                </div>
+                                <div className={styles.paragraphContent}>
+                                    {
+                                        paraItem.msgContents.map((msgItem, msgIndex) => (
+                                            <div key={msgItem.msgTime}
+                                                 className={styles.message} {...{ref: messagesEndRef}}>
+                                                {
+                                                    !msgIndex && (
+                                                        <div className={styles.msgHeader}>
+                                                            <div className={styles.msgHeaderAuthorName}>
+                                                                {paraItem.user?.name ?? ''}
+                                                            </div>
+                                                            <div className={styles.msgHeaderAuthorRole}>
+                                                                {paraItem.user?.role ?? ''}
+                                                            </div>
+                                                        </div>
+                                                    )
+                                                }
+                                                <div className={`${styles.msgText}`}>
+                                                    <span className={'msgText'}>{msgItem.content}</span>
+                                                </div>
+                                                {
+                                                    !msgIndex && (
+                                                        <div className={styles.msgFooter}>
+                                                            <div className={styles.msgFooterTime}>
+                                                                {msgItem.msgTimeFmt}
+                                                            </div>
+                                                        </div>
+                                                    )
+                                                }
+                                            </div>
+                                        ))
+                                    }
+                                </div>
+                            </div>
+
+                        )
+                    } else {
+                        return (
+                            <div key={paraItem.uMsgTime}
+                                 className={`${styles.paragraph} ${styles.currentParagraph}`}>
+                                <div className={styles.paragraphContent}>
+                                    {
+                                        paraItem.msgContents.map((msgItem, msgIndex) => (
+                                            <div key={msgItem.msgTime}
+                                                 className={styles.message} {...{ref: messagesEndRef}}
+                                                 style={{border: '1px solid rgba(0,0,0,0)'}}>
+                                                <div className={styles.msgText}>
+                                                    <span className={'msgText'}>{msgItem.content}</span>
+                                                </div>
+                                                {
+                                                    !msgIndex && (
+                                                        <div className={styles.msgFooter}>
+                                                            <div className={styles.msgFooterTime}
+                                                                 style={{color: '#fff'}}>
+                                                                {msgItem.msgTimeFmt}
+                                                            </div>
+                                                        </div>
+                                                    )
+                                                }
+                                            </div>
+                                        ))
+                                    }
+                                </div>
+                            </div>
+                        )
+                    }
+                })
+            }
+
+        </div>
+    )
+})
+ParagraphContainer.displayName = 'ParagraphContainer'
+
+type PushMessageHandleable = {
+    handlePushMessage: (messageContent: MessageContent) => void
+}
+
+export function Conversation() {
+    const {isSideNavOpen} = useSideNav()
+
+    const paragraphContainerRef = useRef<PushMessageHandleable>(null)
+
 
     return (
         <div className={styles.container} style={isSideNavOpen ? {} : {}}>
             <Header/>
-            <div className={styles.paragraphs}>
-                {
-                    paragraphs.map(paraItem => {
-                        if (paraItem.userId !== currUId) {
-                            return (
-                                <div key={paraItem.uMsgTime} className={styles.paragraph}>
-                                    <div className={styles.authorAvatar}>
-                                        <ConvAvatar size={34} name={''} coverImg={paraItem.user?.avatar ?? ''}/>
-                                    </div>
-                                    <div className={styles.paragraphContent}>
-                                        {
-                                            paraItem.msgContents.map((msgItem, msgIndex) => (
-                                                <div key={msgItem.msgTime}
-                                                     className={styles.message} {...{ref: messagesEndRef}}>
-                                                    {
-                                                        !msgIndex && (
-                                                            <div className={styles.msgHeader}>
-                                                                <div className={styles.msgHeaderAuthorName}>
-                                                                    {paraItem.user?.name ?? ''}
-                                                                </div>
-                                                                <div className={styles.msgHeaderAuthorRole}>
-                                                                    {paraItem.user?.role ?? ''}
-                                                                </div>
-                                                            </div>
-                                                        )
-                                                    }
-                                                    <div className={`${styles.msgText}`}>
-                                                        <span className={'msgText'}>{msgItem.content}</span>
-                                                    </div>
-                                                    {
-                                                        !msgIndex && (
-                                                            <div className={styles.msgFooter}>
-                                                                <div className={styles.msgFooterTime}>
-                                                                    {msgItem.msgTimeFmt}
-                                                                </div>
-                                                            </div>
-                                                        )
-                                                    }
-                                                </div>
-                                            ))
-                                        }
-                                    </div>
-                                </div>
-
-                            )
-                        } else {
-                            return (
-                                <div key={paraItem.uMsgTime}
-                                     className={`${styles.paragraph} ${styles.currentParagraph}`}>
-                                    <div className={styles.paragraphContent}>
-                                        {
-                                            paraItem.msgContents.map((msgItem, msgIndex) => (
-                                                <div key={msgItem.msgTime}
-                                                     className={styles.message} {...{ref: messagesEndRef}}
-                                                     style={{border: '1px solid rgba(0,0,0,0)'}}>
-                                                    <div className={styles.msgText}>
-                                                        <span className={'msgText'}>{msgItem.content}</span>
-                                                    </div>
-                                                    {
-                                                        !msgIndex && (
-                                                            <div className={styles.msgFooter}>
-                                                                <div className={styles.msgFooterTime}
-                                                                     style={{color: '#fff'}}>
-                                                                    {msgItem.msgTimeFmt}
-                                                                </div>
-                                                            </div>
-                                                        )
-                                                    }
-                                                </div>
-                                            ))
-                                        }
-                                    </div>
-                                </div>
-                            )
-                        }
-                    })
-                }
-
-            </div>
-            <TextField onPushMessage={handlePushMessage}/>
+            <ParagraphContainer ref={paragraphContainerRef}/>
+            <TextField
+                onPushMessage={(messageContent) => paragraphContainerRef.current?.handlePushMessage(messageContent)}/>
         </div>
     )
 }

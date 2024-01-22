@@ -5,7 +5,7 @@ const prisma = new PrismaClient()
 
 export async function selectUserByEmail(email: string) {
 
-    const user = await prisma.userAccount.findFirst({
+    const user = await prisma.user.findFirst({
         where: {
             email: email
         }

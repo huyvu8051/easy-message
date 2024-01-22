@@ -8,8 +8,8 @@ import {ConvDetails} from '@/app/chat/navigation/convDetails'
 import {useSideNav} from '@/app/chat/SideNavContext'
 import {faBars} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {useSession} from 'next-auth/react'
-import React from 'react'
+import {getSession, useSession} from 'next-auth/react'
+import React, {useEffect, useMemo, useState} from 'react'
 
 function NavToggleBtn() {
     const {isSideNavOpen, toggleSideNav} = useSideNav()
@@ -23,12 +23,10 @@ function NavToggleBtn() {
     )
 }
 
+
 export function Header() {
 
-    const useSession1 = useSession()
-    console.log(useSession1)
-
-    const item = {
+    const [session, setSession] = useState({
         id: '5',
         coverImg: '/assets/img/2977aa404ccb3e9ed56890aa3fee11c9.png',
         name: 'Fullsnack Designers',
@@ -37,12 +35,22 @@ export function Header() {
         lastMsgCount: 0,
         send: false,
         status: 'offline'
-    }
+    })
+
+    useEffect(()=>{
+        const sessionRes = getSession()
+        sessionRes.then((res)=>{
+            console.log(res)
+            const user = res?.user ?? {}
+            setSession({...session, ...{coverImage: user.image ?? '', name: user.name ?? ''}})
+        })
+    }, [])
+
     return (
         <header className={styles.header}>
             <NavToggleBtn/>
-            <ConvAvatar {...item}/>
-            <ConvDetails item={item} style={{width: 'calc(100% - 208px)'}}/>
+            <ConvAvatar {...session}/>
+            <ConvDetails item={session} style={{width: 'calc(100% - 208px)'}}/>
             <ConvOptionBtn/>
             <ConvVideoCallBtn/>
         </header>
