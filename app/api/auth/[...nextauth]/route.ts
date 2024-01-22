@@ -7,6 +7,12 @@ import GitHubProvider from 'next-auth/providers/github'
 import GitlabProvider from 'next-auth/providers/gitlab'
 import Google from 'next-auth/providers/google'
 
+import { PrismaAdapter } from "@auth/prisma-adapter"
+import { PrismaClient } from "@prisma/client"
+import {Adapter} from "next-auth/adapters";
+
+const prisma = new PrismaClient()
+
 const handler = NextAuth({
     providers: [
 
@@ -40,6 +46,7 @@ const handler = NextAuth({
 
 
     ],
+    adapter: PrismaAdapter(prisma) as Adapter,
     pages: {},
     callbacks: {
         async signIn(params) {
