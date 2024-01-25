@@ -4,7 +4,6 @@ import {Conversation} from "@/app/chat/conversation/conversation";
 import {SideNavProvider} from '@/app/chat/SideNavContext'
 
 export default function Chat() {
-
     return (
         <SideNavProvider>
             <main>

@@ -1,9 +1,8 @@
 import {MessageContent} from '@/app/chat/conversation/conversation'
 import styles from '@/app/chat/conversation/conversation.module.css'
-import {faker} from '@faker-js/faker'
-import React, {FormEvent, KeyboardEvent, useEffect, useRef} from 'react'
+import React, {FormEvent, KeyboardEvent, useRef} from 'react'
 
-const dateTimeFormater = new Intl.DateTimeFormat('en-US', {
+const dateTimeFormatter = new Intl.DateTimeFormat('en-US', {
     hour: 'numeric',
     minute: 'numeric',
     hour12: false
@@ -25,7 +24,7 @@ export function TextField({onPushMessage}: { onPushMessage?: (messageContent: Me
                 onPushMessage({
                     content: inputRef.current?.value ?? '',
                     msgTime: date.getTime(),
-                    msgTimeFmt: dateTimeFormater.format(date),
+                    msgTimeFmt: dateTimeFormatter.format(date),
                     // uId: faker.number.int({min: 1, max: 4}),
                     uId: 4,
                     cId: 1

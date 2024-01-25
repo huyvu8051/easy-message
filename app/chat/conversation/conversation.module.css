@@ -57,7 +57,7 @@
 .paragraph {
     display: flex;
     flex-direction: row;
-    align-items: end;
+    align-items: flex-end;
     margin: 16px 16px 0 0;
     transition: opacity 0.5s ease;
 }

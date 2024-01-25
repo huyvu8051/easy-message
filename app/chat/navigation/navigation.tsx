@@ -63,12 +63,12 @@ const conversations: ConversationType[] = [
 export function Navigation() {
     const [convs, setConvs] = useState([])
 
-    useEffect(()=>{
+   /* useEffect(()=>{
         fetch('https://659b4e7ed565feee2daaf22f.mockapi.io/conversation')
             .then(res=>res.json())
             .then(json=>setConvs(json))
     }, [])
-
+*/
     const {isSideNavOpen, toggleSideNav} = useSideNav()
 
     const handleOpenConv = (item: ConversationType) => {

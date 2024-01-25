@@ -50,15 +50,15 @@ const handler = NextAuth({
     pages: {},
     callbacks: {
         async signIn(params) {
-            console.log('signIn', params)
+            // console.log('signIn', params)
             return true
         },
         async redirect(params) {
-            console.log('redirect', params)
+            // console.log('redirect', params)
             return params.url
         },
         async session(params) {
-            console.log('session', params)
+            // console.log('session', params)
             /*const userData = await selectUserByEmail(params.session.user?.email ?? '')
 
             // return params.session
@@ -66,7 +66,7 @@ const handler = NextAuth({
             return params.session
         },
         async jwt(params) {
-            console.log('jwt', params)
+            // console.log('jwt', params)
             return params.token
         }
     }
