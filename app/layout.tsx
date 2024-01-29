@@ -1,5 +1,4 @@
 import {Footer} from '@/app/footer'
-import {SystemProvider} from '@/app/systemProvider'
 import {config} from '@fortawesome/fontawesome-svg-core'
 
 import '@fortawesome/fontawesome-svg-core/styles.css'
@@ -36,9 +35,8 @@ export default async function RootLayout({
     return (
         <html lang="en">
         <body className={plusJakartaSans.className}>
-        <SystemProvider>
-            {children}
-        </SystemProvider>
+
+        {children}
         <Footer/>
         </body>
         </html>
