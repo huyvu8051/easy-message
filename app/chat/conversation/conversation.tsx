@@ -5,6 +5,7 @@ import {Header} from '@/app/chat/conversation/header'
 import {ParagraphContainer} from '@/app/chat/conversation/paragraphContainer'
 import {TextField} from '@/app/chat/conversation/textField'
 import {useSideNav} from '@/app/chat/SideNavContext'
+import {useChatSocket} from '@/hooks/use-chat-socket'
 import React, {useLayoutEffect, useRef} from 'react'
 
 let SortedSet = require('collections/sorted-set')
@@ -44,9 +45,15 @@ type PushMessageHandleable = {
 
 export function Conversation() {
     const {isSideNavOpen} = useSideNav()
-
     const paragraphContainerRef = useRef<PushMessageHandleable>(null)
 
+    const chatId = 4
+    const queryKey = `chat:${chatId}`
+    const addKey = `chat:${chatId}:messages`
+    const updateKey = `chat:${chatId}:messages:update`
+
+
+    useChatSocket({queryKey, addKey, updateKey})
 
     console.log('Conversation')
     return (
