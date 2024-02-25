@@ -35,7 +35,6 @@ export default async function RootLayout({
     return (
         <html lang="en">
         <body className={plusJakartaSans.className}>
-
         {children}
         <Footer/>
         </body>

@@ -3,27 +3,26 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
-  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
 model Account {
-  id                 String  @id @default(cuid())
-  userId             String
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String?  @db.Text
-  access_token       String?  @db.Text
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?  @db.Text
-  session_state      String?
+  id                       String  @id @default(cuid())
+  userId                   String
+  type                     String
+  provider                 String
+  providerAccountId        String
+  refresh_token            String?
+  access_token             String?
+  expires_at               Int?
+  token_type               String?
+  scope                    String?
+  id_token                 String?
+  session_state            String?
   refresh_token_expires_in Int?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user                     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
@@ -44,6 +43,8 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  channels      Channel[]
+  members       Member[]
 }
 
 model VerificationToken {
@@ -52,4 +53,61 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Member {
+  id                     String         @id @default(uuid())
+  role                   MemberRole     @default(GUEST)
+  profileId              String
+  createdAt              DateTime       @default(now())
+  updatedAt              DateTime       @updatedAt
+  profile                User           @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  channelId              String
+  channel                Channel        @relation(fields: [channelId], references: [id], onDelete: Cascade)
+  messages               Message[]
+
+  @@index([profileId])
+}
+
+
+model Channel {
+  id        String      @id @default(uuid())
+  name      String
+  type      ChannelType @default(TEXT)
+  profileId String
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  profile   User        @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  messages  Message[]
+  members   Member[]
+
+  @@index([profileId])
+}
+
+model Message {
+  id        String   @id @default(uuid())
+  content   String
+  fileUrl   String?
+  memberId  String
+  channelId String
+  deleted   Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  channel   Channel  @relation(fields: [channelId], references: [id], onDelete: Cascade)
+  member    Member   @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+  @@index([channelId])
+  @@index([memberId])
+}
+
+enum MemberRole {
+  ADMIN
+  MODERATOR
+  GUEST
+}
+
+enum ChannelType {
+  TEXT
+  AUDIO
+  VIDEO
 }
