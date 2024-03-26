@@ -30,9 +30,41 @@ export function TextField({onPushMessage}: { onPushMessage?: (messageContent: Me
                     cId: 1
 
                 })
+                // Function to make API call
+                const callApi = async () => {
+                    try {
+                        const response = await fetch('/api/socket/messages', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            // Add any data you want to send to the API here
+                            body: JSON.stringify({
+                                // Example data
+                                message: 'Hello, server!'
+                            })
+                        });
+
+                        if (response.ok) {
+                            // Handle successful API call
+                            console.log('API call successful');
+                        } else {
+                            // Handle API call error
+                            console.error('API call failed');
+                        }
+                    } catch (error) {
+                        console.error('Error during API call:', error);
+                    }
+                };
+
+                callApi().catch(()=>{})
             }
 
             inputRef.current ? inputRef.current.value = '' : null
+
+
+
+
 
         }
     }

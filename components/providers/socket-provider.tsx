@@ -44,6 +44,10 @@ export const SocketProvider = ({
             setIsConnected(false);
         });
 
+        socketInstance.on("notification", (msg: any) => {
+            console.log('on notification',msg);
+        });
+
         setSocket(socketInstance);
 
         return () => {

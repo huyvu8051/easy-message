@@ -1,5 +1,5 @@
 import {ConvAvatar} from '@/app/chat/convAvatar'
-import {Member, MessageContent, Paragraph} from '@/app/chat/conversation/conversation'
+import {Member, MessageContent} from '@/app/chat/conversation/conversation'
 import styles from '@/app/chat/conversation/conversation.module.css'
 import {faker} from '@faker-js/faker'
 import React, {forwardRef, useCallback, useEffect, useImperativeHandle, useLayoutEffect, useRef, useState} from 'react'
@@ -115,7 +115,7 @@ export const ParagraphContainer = forwardRef((props, ref) => {
 
     const [sortedSetMsgs, setSortedSetMsg] = useState(new SortedSet([], (a: MessageContent, b: MessageContent) => a.msgTime === b.msgTime, (a: MessageContent, b: MessageContent) => b.msgTime - a.msgTime))
 
-    const [paragraphs, setParagraphs] = useState<Paragraph[]>([])
+    const [paragraphs, setParagraphs] = useState<any[]>([])
 
 
     /**
@@ -136,10 +136,10 @@ export const ParagraphContainer = forwardRef((props, ref) => {
         msg.paragraph = para
     }
 
-    function pushMsgIntoParagraph(msg: MessageContent, paragraph: Paragraph) {
+    function pushMsgIntoParagraph(msg: MessageContent, paragraph: any) {
         msg.paragraph = paragraph
         paragraph.msgContents.push(msg)
-        paragraph.msgContents = paragraph.msgContents.sort((a, b) => a.msgTime - b.msgTime)
+        paragraph.msgContents = paragraph.msgContents.sort((a: { msgTime: number }, b: { msgTime: number }) => a.msgTime - b.msgTime)
 
     }
 
@@ -230,7 +230,7 @@ export const ParagraphContainer = forwardRef((props, ref) => {
                                 </div>
                                 <div className={styles.paragraphContent}>
                                     {
-                                        paraItem.msgContents.map((msgItem, msgIndex) => (
+                                        paraItem.msgContents.map((msgItem: { msgTime: React.Key | null | undefined; content: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; msgTimeFmt: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined }, msgIndex: any) => (
                                             <div key={msgItem.msgTime}
                                                  className={styles.message} {...{ref: messagesEndRef}}>
                                                 {
@@ -270,7 +270,7 @@ export const ParagraphContainer = forwardRef((props, ref) => {
                                  className={`${styles.paragraph} ${styles.currentParagraph}`}>
                                 <div className={styles.paragraphContent}>
                                     {
-                                        paraItem.msgContents.map((msgItem, msgIndex) => (
+                                        paraItem.msgContents.map((msgItem: { msgTime: React.Key | null | undefined; content: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; msgTimeFmt: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined }, msgIndex: any) => (
                                             <div key={msgItem.msgTime}
                                                  className={styles.message} {...{ref: messagesEndRef}}
                                                  style={{border: '1px solid rgba(0,0,0,0)'}}>
