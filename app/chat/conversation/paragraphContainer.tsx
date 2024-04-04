@@ -230,7 +230,7 @@ export const ParagraphContainer = forwardRef((props, ref) => {
                                 </div>
                                 <div className={styles.paragraphContent}>
                                     {
-                                        paraItem.msgContents.map((msgItem: { msgTime: React.Key | null | undefined; content: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; msgTimeFmt: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined }, msgIndex: any) => (
+                                        paraItem.msgContents.map((msgItem: any, msgIndex: any) => (
                                             <div key={msgItem.msgTime}
                                                  className={styles.message} {...{ref: messagesEndRef}}>
                                                 {
@@ -270,7 +270,7 @@ export const ParagraphContainer = forwardRef((props, ref) => {
                                  className={`${styles.paragraph} ${styles.currentParagraph}`}>
                                 <div className={styles.paragraphContent}>
                                     {
-                                        paraItem.msgContents.map((msgItem: { msgTime: React.Key | null | undefined; content: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; msgTimeFmt: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined }, msgIndex: any) => (
+                                        paraItem.msgContents.map((msgItem: any, msgIndex: any) => (
                                             <div key={msgItem.msgTime}
                                                  className={styles.message} {...{ref: messagesEndRef}}
                                                  style={{border: '1px solid rgba(0,0,0,0)'}}>
